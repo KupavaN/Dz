@@ -10,17 +10,21 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            // ДЗ-1
-            string name = "player";
-            byte healf = 150;
-            short armor = 400;
-            int gold = 100000;
-            float jamInLiterJar = 0.8f;
-            string npcHello = "Hello adventurer";
-            bool isArmorBroken = armor <= 0;
-            bool isPlayerAlive = healf > 0;
-            int crystal = 50;
-            double inventoryWeight = 45.0;
+            // ДЗ-3
+            string name;
+            int age;
+            string zodiacSign;
+            string workPlace;
+            Console.Write("Enter your name: ");
+            name = Console.ReadLine();
+            Console.Write("Enter your age: ");
+            age = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter your zodiac sign: ");
+            zodiacSign = Console.ReadLine();
+            Console.Write("Where do you work? ");
+            workPlace = Console.ReadLine();
+            Console.WriteLine($"Your name is {name} and you are {age} age old. Your zodiac sign is {zodiacSign}" +
+                $" and you work on {workPlace} ");
         }
     }
 }
