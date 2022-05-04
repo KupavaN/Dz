@@ -10,21 +10,14 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            // ДЗ-3
-            string name;
-            int age;
-            string zodiacSign;
-            string workPlace;
-            Console.Write("Enter your name: ");
-            name = Console.ReadLine();
-            Console.Write("Enter your age: ");
-            age = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Enter your zodiac sign: ");
-            zodiacSign = Console.ReadLine();
-            Console.Write("Where do you work? ");
-            workPlace = Console.ReadLine();
-            Console.WriteLine($"Your name is {name} and you are {age} age old. Your zodiac sign is {zodiacSign}" +
-                $" and you work on {workPlace} ");
+            // ДЗ-4
+            int totalPictures = 52;
+            int totalLines;
+            int picturesInLine = 3;
+            int picturesNotFullLine;
+            totalLines = totalPictures / picturesInLine;
+            picturesNotFullLine = totalPictures % picturesInLine;            
+            Console.WriteLine($"There are {totalLines} Lines and {picturesNotFullLine} more picture.");
         }
     }
 }
