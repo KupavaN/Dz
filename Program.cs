@@ -11,12 +11,13 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {                      
             string name = "Kurilov";
-            string surname = "Pavel";
-            string checkName = name;
+            string surname = "Pavel";          
             string itog = name + " " + surname;
             Console.WriteLine(itog);
-            name = surname;
-            surname = checkName;
+            string nameCorrect = "Pavel";
+            string surnameCorrect = "Kurilov";
+            name = nameCorrect;
+            surname = surnameCorrect;
             string itogNew = name + " " + surname;
             Console.WriteLine(itogNew);
         }
