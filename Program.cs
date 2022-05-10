@@ -10,15 +10,14 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            // ДЗ-5
+            // ДЗ-5           
             string name = "Kurilov";
             string surname = "Pavel";
+            string checkName = name;
             string itog = name + " " + surname;
             Console.WriteLine(itog);
-            string nameCorrect = "Pavel";
-            string surnameCorrect = "Kurilov";
-            name = nameCorrect;
-            surname = surnameCorrect;
+            name = surname;
+            surname = checkName;
             string itogNew = name + " " + surname;
             Console.WriteLine(itogNew);
         }
