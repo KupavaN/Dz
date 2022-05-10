@@ -10,14 +10,17 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            // ДЗ-4
-            int totalPictures = 52;
-            int totalLines;
-            int picturesInLine = 3;
-            int picturesNotFullLine;
-            totalLines = totalPictures / picturesInLine;
-            picturesNotFullLine = totalPictures % picturesInLine;            
-            Console.WriteLine($"There are {totalLines} Lines and {picturesNotFullLine} more picture.");
+            // ДЗ-5
+            string name = ("Kurilov");
+            string surname = ("Pavel");
+            string itog = name + " " + surname;
+            Console.WriteLine(itog);
+            string nameCorrect = ("Pavel");
+            string surnameCorrect = ("Kurilov");
+            name = nameCorrect;
+            surname = surnameCorrect;
+            string itogNew = name + " " + surname;
+            Console.WriteLine(itogNew);
         }
     }
 }
