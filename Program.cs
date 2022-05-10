@@ -9,12 +9,16 @@ namespace ConsoleApp1
     internal class Program
     {
         static void Main(string[] args)
-        {           
+        {                      
             string name = "Kurilov";
             string surname = "Pavel";
+            string checkName = name;
             string itog = name + " " + surname;
             Console.WriteLine(itog);
-            
+            name = surname;
+            surname = checkName;
+            string itogNew = name + " " + surname;
+            Console.WriteLine(itogNew);
         }
     }
 }
