@@ -15,12 +15,12 @@ namespace ConsoleApp1
             int timeInLine;
             int minutesInLine;
             int hoursInLine;
-            int waitingTime = 60;
+            int minutesInHour = 60;
             Console.Write("How many people are in line? ");
             peopleInLine = Convert.ToInt32(Console.ReadLine());
             timeInLine = peopleInLine * appointmentTime;
-            hoursInLine = timeInLine / waitingTime;
-            minutesInLine = timeInLine % waitingTime;
+            hoursInLine = timeInLine / minutesInHour;
+            minutesInLine = timeInLine % minutesInHour;
             Console.WriteLine($"You have to wait for your turn for {hoursInLine} hours and {minutesInLine} minutes");
         }
     }
