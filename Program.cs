@@ -10,18 +10,18 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int peopleInLine;
-            int appointmentTime = 10;
-            int timeInLine;
-            int minutesInLine;
-            int hoursInLine;
-            int minutesInHour = 60;
-            Console.Write("How many people are in line? ");
-            peopleInLine = Convert.ToInt32(Console.ReadLine());
-            timeInLine = peopleInLine * appointmentTime;
-            hoursInLine = timeInLine / minutesInHour;
-            minutesInLine = timeInLine % minutesInHour;
-            Console.WriteLine($"You have to wait for your turn for {hoursInLine} hours and {minutesInLine} minutes");
+            string userInput;
+            int iterationCount;
+
+            Console.Write("Enter your messege ");
+            userInput = Console.ReadLine();
+            Console.Write("How many times to repeat the message ");
+            iterationCount = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0;i < iterationCount;i++)
+            {
+                Console.WriteLine(userInput);                
+            }
         }
     }
 }
