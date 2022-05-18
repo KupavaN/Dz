@@ -9,22 +9,23 @@ namespace ConsoleApp1
     internal class Program
     {
         static void Main(string[] args)
-        {            
-            int mainMenuActive = 1; // 1 = true
+        {           
             string userInput;
+            string exitProtocol = ("Exit");
+            bool isMainMenuActive = true;
 
-            while (mainMenuActive > 0)
+            while (isMainMenuActive == true)
             {
                 Console.WriteLine("You are in the main menu");
                 Console.WriteLine("Enter Exit to close programm");
                 userInput = Console.ReadLine();
-                if (userInput == "Exit")
+                if (userInput == exitProtocol)
                 {
                     Console.WriteLine("Exit protocol activate :) ");
-                    break;
+                    isMainMenuActive = false;
                 }
             }
-
+            Console.WriteLine($"You activate {exitProtocol} protocol. The game is over.");
 
         }
     }
