@@ -12,7 +12,7 @@ namespace ConsoleApp1
         {           
            
            Random rand = new Random();
-              int number = 10;
+              int number = rand.Next(0,101);
              int firstNumberMultiple = 3;
               int secondNumberMultiple = 5;
               int multipleOne = firstNumberMultiple;
