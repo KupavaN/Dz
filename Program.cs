@@ -11,8 +11,10 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {           
            
-           Random rand = new Random();
-            int number = rand.Next(0, 101);
+           Random random = new Random();            
+            int minimumPossibleNumber = 0;
+            int maximumPossibleNumber = 101;
+            int number = random.Next(minimumPossibleNumber, maximumPossibleNumber);
             int firstNumberMultiple = 3;
             int secondNumberMultiple = 5;            
             int score = 0;
@@ -23,12 +25,9 @@ namespace ConsoleApp1
                 if ((totalCount % firstNumberMultiple == 0) ||(totalCount % secondNumberMultiple == 0))
                 {
                     Console.WriteLine(totalCount);
-                    
                 }
             }
-            Console.WriteLine($"These are all multiples of {firstNumberMultiple} and {secondNumberMultiple} for the number {number}");
-               
-
+            Console.WriteLine($"These are all multiples of {firstNumberMultiple} and {secondNumberMultiple} for the number {number}");               
         }  
     }
 }
