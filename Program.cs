@@ -17,12 +17,12 @@ namespace ConsoleApp1
             int number = random.Next(minimumPossibleNumber, maximumPossibleNumber);
             int firstNumberMultiple = 3;
             int secondNumberMultiple = 5;            
-            int score = 0;
-            int totalCount = score;
+            int zeroNumber = 0;
+            int totalCount = zeroNumber;
 
-            for (totalCount = score; totalCount <= number; totalCount++)
+            for (totalCount = zeroNumber; totalCount <= number; totalCount++)
             {
-                if ((totalCount % firstNumberMultiple == 0) ||(totalCount % secondNumberMultiple == 0))
+                if ((totalCount % firstNumberMultiple == zeroNumber) ||(totalCount % secondNumberMultiple == zeroNumber))
                 {
                     Console.WriteLine(totalCount);
                 }
