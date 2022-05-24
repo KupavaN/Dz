@@ -16,11 +16,9 @@ namespace ConsoleApp1
             float usdToEur = 0.96f;
             int eurToRub = 78;
             float eurToUsd = 0.85f;
-            float currencyCount;
-            
+            float currencyCount;            
             string userInput;
             bool isProgrammWorks = true;
-
             float rub;
             float usd;
             float eur;           
