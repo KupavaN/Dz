@@ -12,24 +12,22 @@ namespace ConsoleApp1
         {           
            
            Random rand = new Random();
-              int number = rand.Next(0,101);
-             int firstNumberMultiple = 3;
-              int secondNumberMultiple = 5;
-              int multipleOne = firstNumberMultiple;
-              int multipleTwo = secondNumberMultiple;
-               bool finalOne = true;
-             bool finalTwo = true;
-            for (multipleOne = firstNumberMultiple; multipleOne <= number; multipleOne += firstNumberMultiple)
-            {
-                Console.WriteLine(multipleOne);
-            }
-            Console.WriteLine($"these are all multiples of {firstNumberMultiple}");
+            int number = rand.Next(0, 101);
+            int firstNumberMultiple = 3;
+            int secondNumberMultiple = 5;            
+            int score = 0;
+            int totalCount = score;
 
-            for (multipleTwo = secondNumberMultiple; multipleTwo <= number; multipleTwo += secondNumberMultiple)
+            for (totalCount = score; totalCount <= number; totalCount++)
             {
-                Console.WriteLine(multipleTwo);
+                if ((totalCount % firstNumberMultiple == 0) ||(totalCount % secondNumberMultiple == 0))
+                {
+                    Console.WriteLine(totalCount);
+                    
+                }
             }
-            Console.WriteLine($"these are all multiples of {secondNumberMultiple}");
+            Console.WriteLine($"These are all multiples of {firstNumberMultiple} and {secondNumberMultiple} for the number {number}");
+               
 
         }  
     }
