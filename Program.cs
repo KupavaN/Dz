@@ -18,16 +18,17 @@ namespace ConsoleApp1
             int firstNumberMultiple = 3;
             int secondNumberMultiple = 5;            
             int zeroNumber = 0;
-            int totalCount = zeroNumber;
+            int count = zeroNumber;
+            int totalCount = count;
 
-            for (totalCount = zeroNumber; totalCount <= number; totalCount++)
+            for (count = zeroNumber; count <= number; count++)
             {
-                if ((totalCount % firstNumberMultiple == zeroNumber) ||(totalCount % secondNumberMultiple == zeroNumber))
-                {
-                    Console.WriteLine(totalCount);
-                }
+                if ((count % firstNumberMultiple == zeroNumber) ||(count % secondNumberMultiple == zeroNumber))
+                {                   
+                    totalCount += count;                   
+                }               
             }
-            Console.WriteLine($"These are all multiples of {firstNumberMultiple} and {secondNumberMultiple} for the number {number}");               
+            Console.WriteLine($"The number is {number} and sum of multiples { totalCount}");
         }  
     }
 }
