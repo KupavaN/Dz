@@ -19,10 +19,12 @@ namespace ConsoleApp1
             bool isGameActive = true;
             bool isRegistrarionActive = true;
             bool isVaultSecurityPass = true;
-            Random random = new Random();            
-            int password = random.Next(1000, 10000);
-            bool checkPassword = false;
-            bool checkConsoleColor = false;
+            Random random = new Random();
+            int minPassvordCount = 1000;
+            int maxPassvordCount = 10000;
+            int password = random.Next(minPassvordCount, maxPassvordCount);
+            bool incorrectPassword = false;
+            bool incorrectConsoleColor = false;
             int secret = random.Next(1,4);
             string secretWord = "";
 
@@ -130,14 +132,13 @@ namespace ConsoleApp1
                     Console.Read();
                     Console.Clear();
                 }
-
                 while (isVaultSecurityPass == true)
                 {
                     Console.Clear();
                     Console.WriteLine("To open the vault door your password must be correct");
                     Console.WriteLine("Also console background must be changed. Try to guess the color");
-                    Console.WriteLine($"Password status {checkPassword}");
-                    Console.WriteLine($"Console background color correct {checkConsoleColor}");
+                    Console.WriteLine($"Password status {incorrectPassword}");
+                    Console.WriteLine($"Console background color correct {incorrectConsoleColor}");
                     Console.WriteLine("To enter password press 1");
                     Console.WriteLine("To change console background press 2");
                     Console.WriteLine("If password correct and you prepare to come in vault enter - LetMeIn");
@@ -147,7 +148,7 @@ namespace ConsoleApp1
                     switch (userInput)
                     {
                         case "1":
-                            if (checkPassword == true)
+                            if (incorrectPassword == true)
                             {
                                 Console.WriteLine("You already confirm password");
                                 Console.Read();
@@ -158,7 +159,7 @@ namespace ConsoleApp1
                                 userPassword = Convert.ToInt32(Console.ReadLine());
                                 if (userPassword == password)
                                 {
-                                    checkPassword = true;
+                                    incorrectPassword = true;
                                 }
                                 if (userPassword != password)
                                 {
@@ -168,7 +169,7 @@ namespace ConsoleApp1
                             }
                             break;
                         case "2":
-                            if (checkConsoleColor == true)
+                            if (incorrectConsoleColor == true)
                             {
                                 Console.WriteLine("You already confirm console background color");
                                 Console.Read();
@@ -179,17 +180,17 @@ namespace ConsoleApp1
                                 userConsoleColor = Console.ReadLine();
                                 if (userConsoleColor == secretWord)
                                 {
-                                    checkConsoleColor = true;
+                                    incorrectConsoleColor = true;
                                 }
-                                if (checkConsoleColor == true && secret == 1)
+                                if (incorrectConsoleColor == true && secret == 1)
                                 {
                                     Console.BackgroundColor = ConsoleColor.Red;
                                 }
-                                if (checkConsoleColor == true && secret == 2)
+                                if (incorrectConsoleColor == true && secret == 2)
                                 {
                                     Console.BackgroundColor = ConsoleColor.Blue;
                                 }
-                                if (checkConsoleColor == true && secret == 3)
+                                if (incorrectConsoleColor == true && secret == 3)
                                 {
                                     Console.BackgroundColor = ConsoleColor.Green;
                                 }
@@ -201,13 +202,12 @@ namespace ConsoleApp1
                             }
                             break;
                         case "LetMeIn":
-                            if (checkPassword == true && checkConsoleColor == true)
-                            {                               
+                            if (incorrectPassword == true && incorrectConsoleColor == true)
+                            {
+                                Console.WriteLine("Correct. Come in quickly!");
                                 Console.BackgroundColor = ConsoleColor.Black;
                                 Console.Clear();
-                                Console.WriteLine("Correct. Come in quickly!");
                                 isVaultSecurityPass = false;
-
                             }
                             break;
                         case "esc":
