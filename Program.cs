@@ -10,151 +10,233 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int rubToUsd = 75;
-            int rubToEur = 80;
-            int usdToRub = 74;
-            float usdToEur = 0.96f;
-            int eurToRub = 78;
-            float eurToUsd = 0.85f;
-            float currencyCount;            
-            string userInput;
-            bool isProgrammWorks = true;
-            float rub;
-            float usd;
-            float eur;           
-            
-            Console.Write("Enter your rub count ");
-            rub = Convert.ToSingle(Console.ReadLine());
-            Console.Write("Enter your usd count ");
-            usd = Convert.ToSingle(Console.ReadLine());
-            Console.Write("Enter your eur count ");
-            eur = Convert.ToSingle(Console.ReadLine());
+            string name = "";
+            string surname= "";
+            string age =("");
+            int userPassword;
+            string userConsoleColor;
+            string userInput = "";
+            bool isGameActive = true;
+            bool isRegistrarionActive = true;
+            bool isVaultSecurityPass = true;
+            Random random = new Random();            
+            int password = random.Next(1000, 10000);
+            bool checkPassword = false;
+            bool checkConsoleColor = false;
+            int secret = random.Next(1,4);
+            string secretWord = "";
 
-            while (isProgrammWorks == true)
+            if (secret == 1)
             {
-                Console.WriteLine("Hello friend. You can exchange currency there");
-                Console.WriteLine($"You have {rub} rub {usd} usd and {eur} eur.");
-                Console.WriteLine("If you want to exchange rub to usd press 1");
-                Console.WriteLine("If you want to exchange rub to eur press 2");
-                Console.WriteLine("If you want to exchange usd to rub press 3");
-                Console.WriteLine("If you want to exchange usd to eur press 4");
-                Console.WriteLine("If you want to exchange eur to rub press 5");
-                Console.WriteLine("If you want to exchange eur to usd press 6");
-                Console.WriteLine("If you want to close the programm enter Exit");
+                secretWord = "red";
+            }
+            if (secret == 2)
+            {
+                secretWord = "blue";
+            }
+            if (secret == 3)
+            {
+                secretWord = "green";
+            }
+            while (isGameActive == true)
+            {
+
+                Console.WriteLine("Congratulations! You have won a place in the local vault.");
+                Console.WriteLine("Now you only need to register");
+                Console.WriteLine("We need some information about you");
+                Console.Read();
+
+                while (isRegistrarionActive == true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Now we know: ");
+                    Console.WriteLine($"Your name - {name}");
+                    Console.WriteLine($"Your surname - {surname}");
+                    Console.WriteLine($"Your age - {age}");
+                    Console.WriteLine("To specify your name press 1 ");
+                    Console.WriteLine("to specify your surname press 2 ");
+                    Console.WriteLine("to specify your age press 3");
+                    Console.WriteLine("If you scpecify all information please press 4");
+                    Console.WriteLine("If you want escape game enter - esc ");
+                    userInput = Console.ReadLine();
+
+                    switch (userInput)
+                    {
+                        case "1":
+                            if (name != "")
+                            {
+                                Console.WriteLine("You already confirm name");
+                                Console.Read();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Enter your name");
+                                name = Console.ReadLine();
+                            }
+                            break;
+                        case "2":
+                            if (surname != "")
+                            {
+                                Console.WriteLine("You already confirm surname");
+                                Console.Read();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Enter your surname");
+                                surname = Console.ReadLine();
+                            }
+                            break;
+                        case "3":
+                            if (age != "")
+                            {
+                                Console.WriteLine("You already confirm age");
+                                Console.Read();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Enter your age");
+                                age = Console.ReadLine();
+                            }
+                            break;
+                        case "4":
+                            if (name != "" && surname != "" && age != "")
+                            {
+                                Console.WriteLine("Great move on to the next step");
+                                isRegistrarionActive = false;
+                            }
+                            else
+                            {
+                                Console.WriteLine("You have not provided all the data");
+                                Console.Read();
+                            }
+                            break;
+                        case "esc":
+                            isGameActive = false;
+                            isRegistrarionActive = false;
+                            isVaultSecurityPass = false;
+                            break;
+                    }
+                }
+                if (isGameActive == false)
+                {
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("Now we will generate password and secret word");
+                    Console.WriteLine("Attention! Dont forget it.");
+                    Console.WriteLine("You will not be able to get into the storage without this data");
+                    Console.WriteLine($"Your password is {password} and your secret word is {secretWord}");
+                    Console.Read();
+                    Console.Clear();
+                }
+
+                while (isVaultSecurityPass == true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("To open the vault door your password must be correct");
+                    Console.WriteLine("Also console background must be changed. Try to guess the color");
+                    Console.WriteLine($"Password status {checkPassword}");
+                    Console.WriteLine($"Console background color correct {checkConsoleColor}");
+                    Console.WriteLine("To enter password press 1");
+                    Console.WriteLine("To change console background press 2");
+                    Console.WriteLine("If password correct and you prepare to come in vault enter - LetMeIn");
+                    Console.WriteLine("If you want escape game enter - esc ");
+                    userInput = Console.ReadLine();
+
+                    switch (userInput)
+                    {
+                        case "1":
+                            if (checkPassword == true)
+                            {
+                                Console.WriteLine("You already confirm password");
+                                Console.Read();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Enter password");
+                                userPassword = Convert.ToInt32(Console.ReadLine());
+                                if (userPassword == password)
+                                {
+                                    checkPassword = true;
+                                }
+                                if (userPassword != password)
+                                {
+                                    Console.WriteLine("Wrong");
+                                    Console.Read();
+                                }
+                            }
+                            break;
+                        case "2":
+                            if (checkConsoleColor == true)
+                            {
+                                Console.WriteLine("You already confirm console background color");
+                                Console.Read();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Write color and change console background");
+                                userConsoleColor = Console.ReadLine();
+                                if (userConsoleColor == secretWord)
+                                {
+                                    checkConsoleColor = true;
+                                }
+                                if (checkConsoleColor == true && secret == 1)
+                                {
+                                    Console.BackgroundColor = ConsoleColor.Red;
+                                }
+                                if (checkConsoleColor == true && secret == 2)
+                                {
+                                    Console.BackgroundColor = ConsoleColor.Blue;
+                                }
+                                if (checkConsoleColor == true && secret == 3)
+                                {
+                                    Console.BackgroundColor = ConsoleColor.Green;
+                                }
+                                if (userConsoleColor != secretWord)
+                                {
+                                    Console.WriteLine("Incorrect");
+                                    Console.Read();
+                                }
+                            }
+                            break;
+                        case "LetMeIn":
+                            if (checkPassword == true && checkConsoleColor == true)
+                            {                               
+                                Console.BackgroundColor = ConsoleColor.Black;
+                                Console.Clear();
+                                Console.WriteLine("Correct. Come in quickly!");
+                                isVaultSecurityPass = false;
+
+                            }
+                            break;
+                        case "esc":
+                            isGameActive = false;
+                            isRegistrarionActive = false;
+                            isVaultSecurityPass = false;
+                            break;
+                    }
+                }
+                if (isGameActive == false)
+                {
+                    Console.WriteLine("Have a nice day");
+                }
+                else if (isGameActive == true)
+                {
+                    isRegistrarionActive = true;
+                    isVaultSecurityPass = true;
+                    Console.WriteLine("You complete the game.");
+                    Console.WriteLine("Enter - esc to close the game, or it will restart");                   
+                }
                 userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
-                    case "1":
-                        Console.WriteLine("You have chosen rub to usd");
-                        Console.Write("How much do you want to exchange ");
-                        currencyCount = Convert.ToSingle(Console.ReadLine());
-                        if (rub >= currencyCount)
-                        {
-                            rub-=currencyCount;
-                            usd += currencyCount / rubToUsd;
-                            Console.WriteLine("Completed successfully");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid value.");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        break;
-                    case "2":
-                        Console.WriteLine("You have chosen rub to eur");
-                        Console.Write("How much do you want to exchange ");
-                        currencyCount = Convert.ToSingle(Console.ReadLine());
-                        if (rub >= currencyCount)
-                        {
-                            rub -= currencyCount;
-                            eur += currencyCount / rubToEur;
-                            Console.WriteLine("Completed successfully");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid value.");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        break;
-                    case "3":
-                        Console.WriteLine("You have chosen usd to rub");
-                        Console.Write("How much do you want to exchange ");
-                        currencyCount = Convert.ToSingle(Console.ReadLine());
-                        if (usd >= currencyCount)
-                        {
-                            usd -= currencyCount;
-                            rub += currencyCount * usdToRub;
-                            Console.WriteLine("Completed successfully");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid value.");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        break;
-                    case "4":
-                        Console.WriteLine("You have chosen usd to eur");
-                        Console.Write("How much do you want to exchange ");
-                        currencyCount = Convert.ToSingle(Console.ReadLine());
-                        if (usd >= currencyCount)
-                        {
-                            usd -= currencyCount;
-                            eur += currencyCount / usdToEur;
-                            Console.WriteLine("Completed successfully");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid value.");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        break;
-                    case "5":
-                        Console.WriteLine("You have chosen eur to rub");
-                        Console.Write("How much do you want to exchange ");
-                        currencyCount = Convert.ToSingle(Console.ReadLine());
-                        if (eur >= currencyCount)
-                        {
-                            eur -= currencyCount;
-                            rub += currencyCount * eurToRub;
-                            Console.WriteLine("Completed successfully");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid value.");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        break;
-                    case "6":
-                        Console.WriteLine("You have chosen eur to usd");
-                        Console.Write("How much do you want to exchange ");
-                        currencyCount = Convert.ToSingle(Console.ReadLine());
-                        if (eur >= currencyCount)
-                        {
-                            eur -= currencyCount;
-                            usd += currencyCount * eurToUsd;
-                            Console.WriteLine("Completed successfully");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid value.");
-                            Console.WriteLine("You will be redirected to the selection screen");
-                        }
-                        break;
-                    case "Exit":
-                        isProgrammWorks = false;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid value.");
-                        Console.WriteLine("You will be redirected to the selection screen");
+                    case "esc":
+                        isGameActive = false;
                         break;
                 }
+                Console.Clear();                
             }
         }
     }
