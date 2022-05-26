@@ -40,6 +40,7 @@ namespace ConsoleApp1
             {
                 secretWord = "green";
             }
+
             while (isGameActive == true)
             {
 
@@ -65,6 +66,7 @@ namespace ConsoleApp1
                     switch (userInput)
                     {
                         case "1":
+                           
                             if (name != "")
                             {
                                 Console.WriteLine("You already confirm name");
@@ -77,6 +79,7 @@ namespace ConsoleApp1
                             }
                             break;
                         case "2":
+                            
                             if (surname != "")
                             {
                                 Console.WriteLine("You already confirm surname");
@@ -89,6 +92,7 @@ namespace ConsoleApp1
                             }
                             break;
                         case "3":
+                           
                             if (age != "")
                             {
                                 Console.WriteLine("You already confirm age");
@@ -101,6 +105,7 @@ namespace ConsoleApp1
                             }
                             break;
                         case "4":
+                            
                             if (name != "" && surname != "" && age != "")
                             {
                                 Console.WriteLine("Great move on to the next step");
@@ -119,6 +124,7 @@ namespace ConsoleApp1
                             break;
                     }
                 }
+               
                 if (isGameActive == false)
                 {
                     Console.Clear();
@@ -132,6 +138,7 @@ namespace ConsoleApp1
                     Console.Read();
                     Console.Clear();
                 }
+
                 while (isVaultSecurityPass == true)
                 {
                     Console.Clear();
@@ -148,6 +155,7 @@ namespace ConsoleApp1
                     switch (userInput)
                     {
                         case "1":
+                            
                             if (incorrectPassword == true)
                             {
                                 Console.WriteLine("You already confirm password");
@@ -157,6 +165,7 @@ namespace ConsoleApp1
                             {
                                 Console.WriteLine("Enter password");
                                 userPassword = Convert.ToInt32(Console.ReadLine());
+                                
                                 if (userPassword == password)
                                 {
                                     incorrectPassword = true;
@@ -169,6 +178,7 @@ namespace ConsoleApp1
                             }
                             break;
                         case "2":
+                            
                             if (incorrectConsoleColor == true)
                             {
                                 Console.WriteLine("You already confirm console background color");
@@ -178,6 +188,7 @@ namespace ConsoleApp1
                             {
                                 Console.WriteLine("Write color and change console background");
                                 userConsoleColor = Console.ReadLine();
+                                
                                 if (userConsoleColor == secretWord)
                                 {
                                     incorrectConsoleColor = true;
@@ -186,14 +197,17 @@ namespace ConsoleApp1
                                 {
                                     Console.BackgroundColor = ConsoleColor.Red;
                                 }
+                                
                                 if (incorrectConsoleColor == true && secret == 2)
                                 {
                                     Console.BackgroundColor = ConsoleColor.Blue;
                                 }
+                                
                                 if (incorrectConsoleColor == true && secret == 3)
                                 {
                                     Console.BackgroundColor = ConsoleColor.Green;
                                 }
+                                
                                 if (userConsoleColor != secretWord)
                                 {
                                     Console.WriteLine("Incorrect");
@@ -202,6 +216,7 @@ namespace ConsoleApp1
                             }
                             break;
                         case "LetMeIn":
+                            
                             if (incorrectPassword == true && incorrectConsoleColor == true)
                             {
                                 Console.WriteLine("Correct. Come in quickly!");
@@ -217,6 +232,7 @@ namespace ConsoleApp1
                             break;
                     }
                 }
+                
                 if (isGameActive == false)
                 {
                     Console.WriteLine("Have a nice day");
