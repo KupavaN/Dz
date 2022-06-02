@@ -14,6 +14,7 @@ namespace ConsoleApp1
             string userSign;
             int frameLength = 0;
             int firstAndLastFrameSign = 2;
+            string frameString = "";
 
             Console.WriteLine("Enter your word");
             userInput = Console.ReadLine();
@@ -23,16 +24,12 @@ namespace ConsoleApp1
                         
             for (int i = 0; i < (frameLength); i++)
             {
-                Console.Write(userSign);
+                frameString = frameString + userSign;
             }
 
-            Console.Write("\n");
+            Console.WriteLine(frameString);
             Console.WriteLine(userSign+userInput+userSign);
-
-            for (int i = 0; i < (frameLength); i++)
-            {
-                Console.Write(userSign);
-            }
+            Console.WriteLine(frameString);
         }
     }
 }
