@@ -17,7 +17,7 @@ namespace ConsoleApp1
             Console.WriteLine($"You have {attempts} attempts");
             Console.WriteLine("Enter password");            
 
-            while (attempts-- > 0)
+            for (int i = attempts; i >0; i--)
             {                
                 userInput = Console.ReadLine();
                 
@@ -28,7 +28,8 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    Console.WriteLine("Invalid password");                    
+                    Console.WriteLine("Invalid password");  
+                    attempts--;
                 }
 
                 Console.WriteLine($"You have {attempts} attempts");
