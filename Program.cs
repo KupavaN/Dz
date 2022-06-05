@@ -11,14 +11,16 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             string password = "123";
-            int attempts = 4;
+            int attempts = 3;
             string userInput;
+
+            Console.WriteLine($"You have {attempts} attempts");
+            Console.WriteLine("Enter password");            
 
             while (attempts-- > 0)
             {                
-                Console.WriteLine($"You have {attempts} attempts");
-                Console.WriteLine("Enter password");                              
                 userInput = Console.ReadLine();
+                
                 if (userInput == password)
                 {
                     Console.WriteLine("Secret messege: \nHello world!");                    
@@ -26,10 +28,10 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    Console.WriteLine("Invalid password");
-                    
-                }                
-                Console.Clear();                                
+                    Console.WriteLine("Invalid password");                    
+                }
+
+                Console.WriteLine($"You have {attempts} attempts");
             }
 
         }
