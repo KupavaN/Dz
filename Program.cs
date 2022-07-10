@@ -10,25 +10,26 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int minNaturalNumber = 100;
-            int maxNaturalNumber = 999;
+
             int minNumber = 1;
-            int maxNumber = 27;
-            int counterMultipleNumbers = 0;
+            int maxNumber = 100;
+            int degreeNumber = 2;
+            int numberThatWillDegree = 2;
+            int degreeCount = 1;
+            int degree = 1;
             Random random = new Random();
             int randomNumber = random.Next(minNumber, maxNumber);
 
-            for (int currentNumber = 0; currentNumber < maxNaturalNumber; currentNumber += randomNumber)
+            for (int i = degree; i >= 1; i += degreeCount)
             {
-
-                if (currentNumber >= minNaturalNumber)
+                if (randomNumber >= degreeNumber)
                 {
-                    counterMultipleNumbers++;
+                    degreeNumber *= numberThatWillDegree;
+                    degree += degreeCount;
                 }
             }
-
-            Console.WriteLine($"Количество трехзначных натуральных чисел, кратных {randomNumber},=:{counterMultipleNumbers}");
+            Console.WriteLine($"Degree = {degree}. Degree number = {degreeNumber}. Random number = {randomNumber}");
             Console.ReadLine();
-        }       
+        }
     }
 }
