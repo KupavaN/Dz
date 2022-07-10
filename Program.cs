@@ -15,7 +15,6 @@ namespace ConsoleApp1
             int minNumber = 1;
             int maxNumber = 27;
             int counterMultipleNumbers = 0;
-
             Random random = new Random();
             int randomNumber = random.Next(minNumber, maxNumber);
 
