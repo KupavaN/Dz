@@ -20,7 +20,7 @@ namespace ConsoleApp1
             Random random = new Random();
             int randomNumber = random.Next(minNumber, maxNumber);
 
-            for (int i = degree; i >= 1; i += degreeCount)
+            for (int i = degree; i >= degreeCount; i += degreeCount)
             {
                 if (randomNumber >= degreeNumber)
                 {
