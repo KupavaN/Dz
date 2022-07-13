@@ -37,7 +37,7 @@ namespace ConsoleApp1
                     bracketDepth++;
                 }
             }
-            if (count >= 0)
+            if (count == 0)
             {
                 Console.WriteLine(bracketDepth);
             }
