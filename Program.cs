@@ -11,25 +11,40 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-            int minNumber = 1;
-            int maxNumber = 100;
-            int degreeNumber = 2;
-            int numberThatWillDegree = 2;
-            int degreeCount = 1;
-            int degree = 1;
-            Random random = new Random();
-            int randomNumber = random.Next(minNumber, maxNumber);
-
-            for (int i = degree; i >= degreeCount; i += degreeCount)
+            string text = Console.ReadLine();
+            int length = text.Length;            
+            int count = 0;
+            int bracketDepth = 0;
+            if (length == 0)
             {
-                if (randomNumber >= degreeNumber)
+                Console.WriteLine("Invalid value");
+                return;
+            }
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] ==Convert.ToChar("("))
                 {
-                    degreeNumber *= numberThatWillDegree;
-                    degree += degreeCount;
+                    count++;
+                    bracketDepth--;
+                    if (bracketDepth <= 0)
+                    {
+                        bracketDepth = 0;
+                    }
+                }
+                else if (text[i] == Convert.ToChar(")"))
+                {
+                    count--;
+                    bracketDepth++;
                 }
             }
-            Console.WriteLine($"Degree = {degree}. Degree number = {degreeNumber}. Random number = {randomNumber}");
-            Console.ReadLine();
+            if (count >= 0)
+            {
+                Console.WriteLine(bracketDepth);
+            }
+            else if (count < 0)
+            {
+                Console.WriteLine("Incorrect bracket expression");
+            }
         }
     }
 }
