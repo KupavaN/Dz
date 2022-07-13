@@ -41,7 +41,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine(bracketDepth);
             }
-            else if (count < 0)
+            else if (count > 0 || count <0)
             {
                 Console.WriteLine("Incorrect bracket expression");
             }
