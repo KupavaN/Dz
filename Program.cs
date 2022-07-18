@@ -14,15 +14,16 @@ namespace ConsoleApp1
             int playerHp = 100;
             int playerMp = 100;
             int playerArmor = 100;
-            int playerDamage = 30;
+            int playerDamage = 45;
 
             int bossHp = 100;            
             int bossArmor = 100;
-            int bossDamage = 60;
+            int bossDamage = 50;
+            int armorRatio = 2;
            
             int paladinSlash = playerDamage * 3;
             int paladinSlashMpCost = 40;
-            bool IsPaladinAuraActive = false;
+            bool isPaladinAuraActive = false;
             int paladinAuraRoundTurn = 3;
             int paladinAuraRoundTurnDefault = 3;
             int paladinAuraMpCost = 60;
@@ -37,9 +38,13 @@ namespace ConsoleApp1
             {
                 Console.Clear();
 
-                Console.WriteLine($"Paladin's aura active:{IsPaladinAuraActive}");
+                Console.WriteLine("Attention!!!");
+                Console.WriteLine("As long as the enemy has armor, your attacks will only deal half the damage. ");
+                Console.WriteLine("This rule also works for you");
+                Console.WriteLine("*******************************");
+                Console.WriteLine($"Paladin's aura active:{isPaladinAuraActive}");
 
-                if (IsPaladinAuraActive == true)
+                if (isPaladinAuraActive == true)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"The paladin's aura will be active for {paladinAuraRoundTurn} turns");
@@ -86,16 +91,16 @@ namespace ConsoleApp1
                     case "1":
                         Console.WriteLine("You slash enemy");
 
-                        if (bossArmor - (playerDamage/2) >0)
+                        if (bossArmor - (playerDamage/ armorRatio) >0)
                         {
                             bossTurn = true;
-                            bossArmor -= (playerDamage/2);
+                            bossArmor -= (playerDamage/ armorRatio);
                         }
-                        if (bossArmor - (playerDamage/2) < 0)
+                        if (bossArmor - (playerDamage/ armorRatio) < 0)
                         {
                             bossTurn = true;
-                            bossHp -= (playerDamage/2-bossArmor);
-                            bossArmor-= (playerDamage/2);
+                            bossHp -= (playerDamage/ armorRatio - bossArmor);
+                            bossArmor-= (playerDamage/ armorRatio);
                         }
                         if (bossArmor == 0)
                         {
@@ -110,19 +115,19 @@ namespace ConsoleApp1
                             bossTurn = false;
                         }                            
 
-                        if (playerMp-paladinSlashMpCost >=0 && bossArmor - (paladinSlash / 2) > 0)
+                        if (playerMp-paladinSlashMpCost >=0 && bossArmor - (paladinSlash / armorRatio) > 0)
                         {
                             Console.WriteLine("You use Paladin's slash");
                             playerMp -= paladinSlashMpCost;
-                            bossArmor -= paladinSlash / 2;
+                            bossArmor -= paladinSlash / armorRatio;
                             bossTurn = true;
                         }
-                        if (playerMp - paladinSlashMpCost >= 0 && bossArmor - (paladinSlash / 2) < 0)
+                        if (playerMp - paladinSlashMpCost >= 0 && bossArmor - (paladinSlash / armorRatio) < 0)
                         {
                             Console.WriteLine("You use Paladin's slash");
                             playerMp -= paladinSlashMpCost;
-                            bossHp -= (paladinSlash / 2 - bossArmor);
-                            bossArmor -= (paladinSlash / 2);
+                            bossHp -= (paladinSlash / armorRatio - bossArmor);
+                            bossArmor -= (paladinSlash / armorRatio);
                             bossTurn = true;
                         }
                         if (playerMp - paladinSlashMpCost >= 0 && bossArmor == 0)
@@ -134,26 +139,26 @@ namespace ConsoleApp1
                         }                                               
                         break;
                     case "3":
-                        if (IsPaladinAuraActive == true)
+                        if (isPaladinAuraActive == true)
                         {
                             Console.WriteLine("Paladin's aura is already active");
                             bossTurn = false;
                         }
-                        if (IsPaladinAuraActive == false && playerMp - paladinAuraMpCost >= 0)
+                        if (isPaladinAuraActive == false && playerMp - paladinAuraMpCost >= 0)
                         {
                             Console.WriteLine("You activate Paladin's aura");
                             playerMp -= paladinAuraMpCost;
-                            IsPaladinAuraActive = true;
+                            isPaladinAuraActive = true;
                             bossTurn = false;
                         }
                         break;
                     case "4":
-                        if (IsPaladinAuraActive == false || playerHp - holyShieldHpCost <= 0)
+                        if (isPaladinAuraActive == false || playerHp - holyShieldHpCost <= 0)
                         {
                             Console.WriteLine("You cant use Sacred shield");
                             bossTurn = false;
                         }
-                        if (IsPaladinAuraActive == true && playerHp - holyShieldHpCost > 0)
+                        if (isPaladinAuraActive == true && playerHp - holyShieldHpCost > 0)
                         {
                             Console.WriteLine("You use Sacred shield");
                             playerHp -= holyShieldHpCost;
@@ -164,7 +169,7 @@ namespace ConsoleApp1
                         break;
                 }
 
-                if (bossTurn == true && IsPaladinAuraActive == true && paladinAuraRoundTurn>0)
+                if (bossTurn == true && isPaladinAuraActive == true && paladinAuraRoundTurn>0)
                 {
                     paladinAuraRoundTurn--;
                     playerHp += auraHpBonus;
@@ -172,17 +177,17 @@ namespace ConsoleApp1
                     if(paladinAuraRoundTurn == 0)
                     {
                         paladinAuraRoundTurn = paladinAuraRoundTurnDefault;
-                        IsPaladinAuraActive=false;
+                        isPaladinAuraActive=false;
                     }
                 }
-                if(bossTurn == true && isHolyShieldActive == false && playerArmor - (bossDamage/2) > 0)
+                if(bossTurn == true && isHolyShieldActive == false && playerArmor - (bossDamage/ armorRatio) > 0)
                 {
-                    playerArmor -= (bossDamage/2);
+                    playerArmor -= (bossDamage/ armorRatio);
                 }
-                if (bossTurn == true && isHolyShieldActive == false && playerArmor - (bossDamage / 2) < 0)
+                if (bossTurn == true && isHolyShieldActive == false && playerArmor - (bossDamage / armorRatio) < 0)
                 {
-                    playerHp -= (bossDamage / 2 - playerArmor);
-                    playerArmor -= (bossDamage / 2);
+                    playerHp -= (bossDamage / armorRatio - playerArmor);
+                    playerArmor -= (bossDamage / armorRatio);
                 }
                 if (bossTurn == true && isHolyShieldActive == false && playerArmor == 0)
                 {
@@ -202,22 +207,23 @@ namespace ConsoleApp1
                     isHolyShieldActive = false;
                 }
 
-                if (bossHp <= 0)
-                {
-                    Console.Clear();
-                    Console.WriteLine("You win");
+                if (bossHp <= 0 || playerHp <= 0)
+                {                    
                     isFightContinue = false;
-                }
+                }                
+            }
+            if (bossHp <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("You win");                
+            }
 
-                if (playerHp <= 0)
-                {
-                    Console.Clear();
-                    Console.WriteLine("You lose");
-                    isFightContinue = false;
-                }
-
-                Console.ReadLine();
-            }                        
+            if (playerHp <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("You lose");                                
+            }
+            Console.ReadLine();
         }
     }
 }
