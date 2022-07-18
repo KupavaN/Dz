@@ -15,12 +15,10 @@ namespace ConsoleApp1
             int playerMp = 100;
             int playerArmor = 100;
             int playerDamage = 45;
-
             int bossHp = 100;            
             int bossArmor = 100;
             int bossDamage = 50;
-            int armorRatio = 2;
-           
+            int armorRatio = 2;           
             int paladinSlash = playerDamage * 3;
             int paladinSlashMpCost = 40;
             bool isPaladinAuraActive = false;
@@ -37,7 +35,6 @@ namespace ConsoleApp1
             while (isFightContinue == true)
             {
                 Console.Clear();
-
                 Console.WriteLine("Attention!!!");
                 Console.WriteLine("As long as the enemy has armor, your attacks will only deal half the damage. ");
                 Console.WriteLine("This rule also works for you");
@@ -50,7 +47,6 @@ namespace ConsoleApp1
                     Console.WriteLine($"The paladin's aura will be active for {paladinAuraRoundTurn} turns");
                     Console.ResetColor();
                 }                               
-
                 Console.WriteLine("*******************************");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Your Hp = {playerHp}");
@@ -168,7 +164,6 @@ namespace ConsoleApp1
                         }
                         break;
                 }
-
                 if (bossTurn == true && isPaladinAuraActive == true && paladinAuraRoundTurn>0)
                 {
                     paladinAuraRoundTurn--;
@@ -193,7 +188,6 @@ namespace ConsoleApp1
                 {
                     playerHp -= bossDamage;
                 }
-
                 if (bossArmor<0)
                 {
                     bossArmor = 0;
@@ -206,7 +200,6 @@ namespace ConsoleApp1
                 {
                     isHolyShieldActive = false;
                 }
-
                 if (bossHp <= 0 || playerHp <= 0)
                 {                    
                     isFightContinue = false;
