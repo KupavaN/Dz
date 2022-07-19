@@ -11,7 +11,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             int [,] array = { {1,2,3 },{7,5,4 },{6,5,8 } };
-            int str = 2;
+            int line = 2;
             int column = 1;
             int sum = 0;
             int mult = array[0,0];
@@ -20,22 +20,20 @@ namespace ConsoleApp1
             {
                 for(int j = 0; j < array.GetLength(1); j++)
                 {
-                    Console.Write($"{array[i, j]} | ");
-                    if (i == str)
-                    {
-                        sum= sum+array[i,j];
-                    }
-
-                    if (j == column)
-                    {
-                        mult= mult*array[i,j];  
-                    }
-                       
+                    Console.Write($"{array[i, j]} | ");                                                              
                 }
-                Console.WriteLine();  
-       
+                Console.WriteLine();         
             }  
-            Console.WriteLine($"sum = {sum}");
+                      
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                sum = sum + array[line,j];
+            }
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                mult = mult * array[i,column];
+            }
+                Console.WriteLine($"sum = {sum}");
             Console.WriteLine($"mult = {mult}");
         }
     }
