@@ -46,7 +46,8 @@ namespace ConsoleApp1
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"The paladin's aura will be active for {paladinAuraRoundTurn} turns");
                     Console.ResetColor();
-                }                               
+                }  
+                
                 Console.WriteLine("*******************************");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Your Hp = {playerHp}");
@@ -104,13 +105,13 @@ namespace ConsoleApp1
                             bossHp -= playerDamage;
                         }
                         break;
-                        case "2":
+                    case "2":
+
                         if (playerMp - paladinSlashMpCost < 0)
                         {
                             Console.WriteLine("Not enogth mp");
                             bossTurn = false;
                         }                            
-
                         if (playerMp-paladinSlashMpCost >=0 && bossArmor - (paladinSlash / armorRatio) > 0)
                         {
                             Console.WriteLine("You use Paladin's slash");
@@ -135,6 +136,7 @@ namespace ConsoleApp1
                         }                                               
                         break;
                     case "3":
+
                         if (isPaladinAuraActive == true)
                         {
                             Console.WriteLine("Paladin's aura is already active");
@@ -149,6 +151,7 @@ namespace ConsoleApp1
                         }
                         break;
                     case "4":
+
                         if (isPaladinAuraActive == false || playerHp - holyShieldHpCost <= 0)
                         {
                             Console.WriteLine("You cant use Sacred shield");
@@ -164,17 +167,20 @@ namespace ConsoleApp1
                         }
                         break;
                 }
+
                 if (bossTurn == true && isPaladinAuraActive == true && paladinAuraRoundTurn>0)
                 {
                     paladinAuraRoundTurn--;
                     playerHp += auraHpBonus;
                     playerArmor += auraArmorBonus;
+
                     if(paladinAuraRoundTurn == 0)
                     {
                         paladinAuraRoundTurn = paladinAuraRoundTurnDefault;
                         isPaladinAuraActive=false;
                     }
                 }
+
                 if(bossTurn == true && isHolyShieldActive == false && playerArmor - (bossDamage/ armorRatio) > 0)
                 {
                     playerArmor -= (bossDamage/ armorRatio);
@@ -205,17 +211,18 @@ namespace ConsoleApp1
                     isFightContinue = false;
                 }                
             }
+
             if (bossHp <= 0)
             {
                 Console.Clear();
                 Console.WriteLine("You win");                
             }
-
             if (playerHp <= 0)
             {
                 Console.Clear();
                 Console.WriteLine("You lose");                                
             }
+
             Console.ReadLine();
         }
     }
