@@ -15,8 +15,8 @@ namespace ConsoleApp1
             int arrayCheckLenth = arrayLength - 1;
             Random random = new Random();
             int localNumber = 0;
-            int firsNumber = 0;
-            int lastNumber = 0;
+            int firsNumber;
+            int lastNumber;
             int randomMin = 0;
             int randomMax = 10;
             int numberChecker = 1;
