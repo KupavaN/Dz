@@ -10,50 +10,53 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int[,] array = new int[10, 10];
+            int[] array = new int [30];
+            int arrayLength = array.Length;
+            int arrayCheckLenth = arrayLength - 1;
             Random random = new Random();
-            int maxElement = int.MinValue;
-            int matrixZero = 0;
-            int minRandomNumber = 1;
-            int maxRandomNumber = 10;
+            int localNumber = 0;
+            int firsNumber = 0;
+            int lastNumber = 0;
+            int randomMin = 0;
+            int randomMax = 10;
+            int numberChecker = 1;
 
-            for (int i = 0; i < array.GetLength(0); i++)
+            for (int i = 0; i < array.Length; i++)
             {
-
-                for (int j = 0; j < array.GetLength(1); j++)
-                {
-                    array[i, j] = random.Next(minRandomNumber, maxRandomNumber);
-                    Console.Write($"{array[i, j]} | ");
-                   
-                    if (maxElement < array[i, j])
-                    {
-                        maxElement = array[i, j];
-                    }
-                }
-
-                Console.WriteLine();
+                array[i] = random.Next(randomMin, randomMax);                
+                Console.Write($"{ array[i]} ");
             }
 
-            Console.WriteLine("\n***************************\n***************************\n***************************\n");
+            Console.WriteLine();
 
-            for (int i = 0; i < array.GetLength(0); i++)
+            if (array[0] > array[1])
             {
-
-                for (int j = 0; j < array.GetLength(1); j++)
-                {
-
-                    if (array[i, j] == maxElement)
-                    {
-                        array[i, j] = matrixZero;
-                    }
-
-                    Console.Write($"{array[i, j]} | ");
-                }
-
-                Console.WriteLine();
+                firsNumber = array[0];
+                Console.Write($"{firsNumber} ");
             }
 
-            Console.WriteLine(maxElement);
+            for (int i = numberChecker; i < array.Length - numberChecker; i++)
+            {
+                if (array[i] > array[i - numberChecker] && array[i] > array[i + numberChecker])
+                {
+                    localNumber = array[i];
+                }
+
+                if (localNumber != 0)
+                {
+                    Console.Write($"{localNumber} ");
+                }
+
+                localNumber = 0;
+            }            
+            
+            if (array[arrayCheckLenth] > array[arrayCheckLenth- numberChecker])
+            {
+                lastNumber = array[arrayCheckLenth];
+                Console.Write($"{lastNumber} ");
+            }
+
+            Console.WriteLine();
         }
     }
 }
