@@ -10,53 +10,60 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int[] array = new int [30];
-            int arrayLength = array.Length;
-            int arrayCheckLenth = arrayLength - 1;
-            Random random = new Random();
-            int localNumber = 0;
-            int firsNumber;
-            int lastNumber;
-            int randomMin = 0;
-            int randomMax = 10;
-            int numberChecker = 1;
+            int arrayLength = 0;
+            int[] array = new int[arrayLength];           
+            int userNumber;
+            bool isActive = true;
+            int[] arraySum = new int[array.Length + 1];
+            int sum = 0;
+            int sumBase = 0;
 
-            for (int i = 0; i < array.Length; i++)
+            while (isActive)
             {
-                array[i] = random.Next(randomMin, randomMax);                
-                Console.Write($"{ array[i]} ");
-            }
+                Console.WriteLine("Enter the number you want add to the array:");
+                Console.WriteLine("Enter 'sum' to sum all array numbers: ");
+                Console.WriteLine("enter 'exit' if you want close the programm: \n");
+                string userInput = Console.ReadLine();
 
-            Console.WriteLine();
-
-            if (array[0] > array[1])
-            {
-                firsNumber = array[0];
-                Console.Write($"{firsNumber} ");
-            }
-
-            for (int i = numberChecker; i < array.Length - numberChecker; i++)
-            {
-                if (array[i] > array[i - numberChecker] && array[i] > array[i + numberChecker])
+                if (userInput != "sum" && userInput != "exit")
                 {
-                    localNumber = array[i];
-                }
+                    userNumber = Convert.ToInt32(userInput);
+                    arrayLength++;
+                    array = new int[arrayLength];
 
-                if (localNumber != 0)
+                    for (int i = 0; i < arraySum.Length; i++)
+                    {
+                        array[i] = arraySum[i];
+                    }
+
+                    array[arrayLength - 1] = userNumber;
+                    arraySum = new int[arrayLength];
+
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        arraySum[i] = array[i];
+                    }
+
+                    arraySum[arrayLength - 1] = userNumber;                    
+                }
+                else if (userInput == "sum")
                 {
-                    Console.Write($"{localNumber} ");
+
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        sum += array[i];
+                    }
+
+                    Console.WriteLine($"Sum = {sum}");
+                    sum = sumBase;
+                    
+                    Console.WriteLine();
                 }
-
-                localNumber = 0;
-            }            
-            
-            if (array[arrayCheckLenth] > array[arrayCheckLenth- numberChecker])
-            {
-                lastNumber = array[arrayCheckLenth];
-                Console.Write($"{lastNumber} ");
-            }
-
-            Console.WriteLine();
+                else if (userInput == "exit")
+                {
+                    isActive = false;
+                }                                
+            }           
         }
     }
 }
