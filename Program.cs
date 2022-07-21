@@ -9,46 +9,44 @@ namespace ConsoleApp1
     internal class Program
     {
         static void Main(string[] args)
-        {            
-            int[] array = new int[0];            
-            bool isActive = true;
-            
-            while (isActive)
+        {
+            int[] array = new int[30];
+            Random random = new Random();
+            int randomMin = 0;
+            int randomMax = 10;            
+            int numberRepittingChecker = 1;
+            int numberRepittingCheckerBase = 1;
+            int maxRepeatNumber = 0;
+            int maxRepittingOfNumber = 0;
+            int firstCheckNumber = 1;
+
+
+            for (int i = 0; i < array.Length; i++)
             {
-                Console.WriteLine("Enter the number you want add to the array:");
-                Console.WriteLine("Enter 'sum' to sum all array numbers: ");
-                Console.WriteLine("enter 'exit' if you want close the programm: \n");
-                string userInput = Console.ReadLine();
+                array[i] = random.Next(randomMin, randomMax);
+                Console.Write($"{array[i]} ");
+            }
 
-                if (userInput != "sum" && userInput != "exit")
+            Console.WriteLine();
+
+            for (int i = firstCheckNumber; i < array.Length; i++)
+            {
+                if (array[i] == array[i - 1])
                 {
-                    int userNumber = Convert.ToInt32(userInput);
-                    int[] tempArray = new int[array.Length + 1];
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        tempArray[i] = array[i];
-                    }  
-                    
-                    tempArray[tempArray.Length - 1] = userNumber;
-                    array = tempArray;
+                    numberRepittingChecker++;
                 }
-                else if (userInput == "sum")
+                else if (maxRepittingOfNumber < numberRepittingChecker)
                 {
-                    int sum = 0;
-
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        sum += array[i];
-                    }
-
-                    Console.WriteLine();
-                    Console.WriteLine($"Sum = {sum}");
+                    maxRepittingOfNumber = numberRepittingChecker;
+                    maxRepeatNumber = array[i - 1];
+                    numberRepittingChecker = numberRepittingCheckerBase;
                 }
-                else if (userInput == "exit")
-                {
-                    isActive = false;
-                }                                
-            }           
+                
+            }
+
+            Console.WriteLine();
+            Console.WriteLine($"Max repeat Number = {maxRepeatNumber}. Max repeat Number count = {maxRepittingOfNumber} . ");
+
         }
     }
 }
