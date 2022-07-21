@@ -22,18 +22,19 @@ namespace ConsoleApp1
                 string userInput = Console.ReadLine();                
 
                 if (userInput != "sum" && userInput != "exit")
-                {                    
+                {
+                    int arrayChecker = 1;
                     int userNumber = Convert.ToInt32(userInput);                    
-                    array = new int[array.Length +1];
+                    array = new int[array.Length + arrayChecker];
 
                     for (int i =0; i < arraySum.Length; i++)
                     {
                         array[i] = arraySum[i];
                     }
 
-                    array[array.Length-1] =userNumber;
+                    array[array.Length- arrayChecker] =userNumber;
                     arraySum = array;
-                    arraySum = new int[arraySum.Length + 1];
+                    arraySum = new int[arraySum.Length + arrayChecker];
                     arraySum = array;
                 }
                 else if (userInput == "sum")
