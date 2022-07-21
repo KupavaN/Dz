@@ -27,7 +27,8 @@ namespace ConsoleApp1
                     for (int i = 0; i < array.Length; i++)
                     {
                         tempArray[i] = array[i];
-                    }                   
+                    }  
+                    
                     tempArray[tempArray.Length - 1] = userNumber;
                     array = tempArray;
                 }
