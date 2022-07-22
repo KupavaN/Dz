@@ -16,8 +16,6 @@ namespace ConsoleApp1
             int maxRepittingOfNumber = 1;
             int numberRepittingCheckerBase = 1;
 
-
-
             for (int i = 0; i < array.Length; i++)
             {
                 Console.Write($"{array[i]} ");
