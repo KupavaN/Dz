@@ -35,18 +35,15 @@ namespace ConsoleApp1
                         maxRepittingOfNumber = numberRepittingChecker;
                         repeatNumber = array[i];
                     }
-
                 }
                 else
                 {
                     numberRepittingChecker = numberRepittingCheckerBase;
                 }
-
             }
 
             Console.WriteLine();
             Console.WriteLine($"Max repeat Number = {repeatNumber}. Max repeat Number count = {maxRepittingOfNumber} . ");
-
         }
     }
 }
