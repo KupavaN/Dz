@@ -14,6 +14,7 @@ namespace ConsoleApp1
             int numberRepittingChecker = 1;
             int repeatNumber = 0;
             int maxRepittingOfNumber = 1;
+            int numberRepittingCheckerBase = 1;
 
 
 
@@ -40,7 +41,7 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    numberRepittingChecker = 1;
+                    numberRepittingChecker = numberRepittingCheckerBase;
                 }
 
             }
