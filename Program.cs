@@ -10,40 +10,18 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int[] array = { 3, 5, 7, 4, 1, 0,9,2,4,8 };
-            int arrayLength = array.Length;
-            int numberCheck = 0;
+            {                
+                Console.WriteLine("Enter your text:");
+                string line = Console.ReadLine();
+                string[] lineArray = line.Split(' ');
 
-            for(int i = 0; i < arrayLength; i++)
-            {
-                Console.Write($"{array[i]} ");
-            }
-
-            Console.WriteLine();
-
-            for(int i = arrayLength-1; i > 0; i--)
-            {
-
-                for (int j =0; j<i; j++)
+                foreach (string word in lineArray)
                 {
-
-                    if (array[j] > array[j + 1])
-                    {
-                        numberCheck=array[j];
-                        array[j] = array[j + 1];
-                        array[j + 1] = numberCheck;
-                    }
+                    Console.WriteLine(word);
                 }
+
+                Console.ReadLine();
             }
-
-            Console.WriteLine();
-
-            for (int i = 0; i < arrayLength; i++)
-            {
-                Console.Write($"{array[i]} ");
-            }
-
-            Console.WriteLine();
         }
     }
 }
