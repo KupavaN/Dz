@@ -25,14 +25,12 @@ namespace ConsoleApp1
 
             for (int i = 0; i < userInput; i++)
             {
-
-                for (int j = array.Length - 1; j > 0; j--)
+                for (int j =0; j<array.Length - 1;j++)
                 {                                        
                         numberChecker = array[j];
-                        array[j] = array[j - 1];
-                        array[j - 1] = numberChecker;                                            
+                        array[j] = array[j + 1];
+                        array[j + 1] = numberChecker;                                            
                 }
-
             }
 
             for (int i = 0; i < array.Length; i++)
