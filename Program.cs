@@ -10,17 +10,34 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            {                
-                Console.WriteLine("Enter your text:");
-                string line = Console.ReadLine();
-                string[] lineArray = line.Split(' ');
+            int userInput;
+            int[] array = { 1, 2, 3, 4,};
+            int numberChecker = 0;
+           
+            for(int i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i]);
+            }
 
-                foreach (string word in lineArray)
-                {
-                    Console.WriteLine(word);
+            Console.WriteLine();
+            Console.WriteLine("Enter how many numbers should be move the list by");
+            userInput = Console.Read();
+
+            for (int i = 0; i < userInput; i++)
+            {
+
+                for (int j = array.Length - 1; j > 0; j--)
+                {                                        
+                        numberChecker = array[j];
+                        array[j] = array[j - 1];
+                        array[j - 1] = numberChecker;                                            
                 }
 
-                Console.ReadLine();
+            }
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i]);
             }
         }
     }
