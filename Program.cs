@@ -25,7 +25,7 @@ namespace ConsoleApp1
                 {
                     case "1":
                         {
-                            AddDossier(ref arrayFio, ref arrayRole);
+                            AddDossier(ref arrayFio,ref arrayRole);
                         }
                         break;
                     case "2":
@@ -49,31 +49,34 @@ namespace ConsoleApp1
                 }
             }
         }
+        static string[] AddDossierInfo(string[] arrayFio, string checkArrayFio)
+        {
+
+            string[] tempArrayFio = new string[arrayFio.Length + 1];
+
+            for (int i = 0; i < arrayFio.Length; i++)
+            {
+                tempArrayFio[i] = arrayFio[i];
+            }
+            arrayFio = tempArrayFio;
+            arrayFio[arrayFio.Length - 1] = checkArrayFio;
+           return arrayFio;
+        }
         static void AddDossier(ref string[] arrayFio, ref string[] arrayRole)
         {
-            Console.WriteLine("Enter Fio");
-            string userInputFio = Console.ReadLine();            
-                string userNumberFio = userInputFio;
-                string[] tempArrayFio = new string[arrayFio.Length + 1];
+            string newArrayFio;
+            string newArrayRole;
 
-                for (int i = 0; i < arrayFio.Length; i++)
-                {
-                    tempArrayFio[i] = arrayFio[i];
-                }
-                tempArrayFio[tempArrayFio.Length - 1] = Convert.ToString(userNumberFio);
-                arrayFio = tempArrayFio;
-            
-            Console.WriteLine("Enter Role");
-            string userInputRole = Console.ReadLine();            
-                string userNumberRole =userInputRole;
-                string[] tempArrayRole = new string[arrayRole.Length + 1];
+            Console.Clear();
+            Console.WriteLine("Enter FIO: ");
+            newArrayFio = Console.ReadLine();
+            arrayFio = AddDossierInfo(arrayFio, newArrayFio);
+            Console.WriteLine("Enter role: ");
+            newArrayRole = Console.ReadLine();
+            arrayRole = AddDossierInfo(arrayRole, newArrayRole);            
+            Console.ReadKey();
+            Console.Clear();
 
-                for (int i = 0; i < arrayRole.Length; i++)
-                {
-                    tempArrayRole[i] = arrayRole[i];
-                }
-                tempArrayRole[tempArrayRole.Length - 1] = Convert.ToString(userNumberRole);
-                arrayRole = tempArrayRole;            
         }
         static void ShowDossier(ref string[] arrayFio, ref string[] arrayRole)
         {
@@ -124,34 +127,34 @@ namespace ConsoleApp1
         }
         public static void DeleteDossier(ref string[] arrayFio, ref string[] arrayRole)
         {
-            string indexToDelete;           
+            string indexToDelete;
             Console.WriteLine("select the number of the dossier to be deleted");
             indexToDelete = Console.ReadLine();
             int indexChecker = Convert.ToInt32(indexToDelete);
 
-            if (indexChecker<=arrayFio.Length)
+            if (indexChecker <= arrayFio.Length)
             {
                 for (int i = 0; i < indexChecker; i++)
                 {
                     for (int j = 0; j < arrayFio.Length - 1; j++)
                     {
                         indexToDelete = arrayFio[j];
-                        arrayFio[j] = arrayFio[j+1];
-                        arrayFio[j+1] = indexToDelete;                        
+                        arrayFio[j] = arrayFio[j + 1];
+                        arrayFio[j + 1] = indexToDelete;
                     }
 
                     for (int k = 0; k < arrayFio.Length - 1; k++)
                     {
                         indexToDelete = arrayRole[k];
-                        arrayRole[k] = arrayRole[k+1];
-                        arrayRole[k+1] = indexToDelete;
+                        arrayRole[k] = arrayRole[k + 1];
+                        arrayRole[k + 1] = indexToDelete;
                     }
                 }
-                Array.Resize(ref arrayFio, arrayFio.Length-1);
-                Array.Resize(ref arrayRole, arrayRole.Length-1);
+                Array.Resize(ref arrayFio, arrayFio.Length - 1);
+                Array.Resize(ref arrayRole, arrayRole.Length - 1);
             }
 
-            else if(arrayFio.Length == 0)
+            else if (arrayFio.Length == 0)
             {
                 Console.WriteLine("No dossier found in database");
             }
