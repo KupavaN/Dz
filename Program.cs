@@ -10,8 +10,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            string[] arrayFio = { "Ivanov Petr Sergeevich", "Petrov Sergei ivanovich", "Sergeev Ivan Petrovich" };
-            string[] arrayRole = { "doctor", "manager", "builder" };
+            string[] Fio = { "Ivanov Petr Sergeevich", "Petrov Sergei ivanovich", "Sergeev Ivan Petrovich" };
+            string[] Role = { "doctor", "manager", "builder" };
             bool isWork = true;
 
             while (isWork == true)
@@ -25,22 +25,22 @@ namespace ConsoleApp1
                 {
                     case "1":
                         {
-                            AddDossier(ref arrayFio, ref arrayRole);
+                            AddDossier(ref Fio, ref Role);
                         }
                         break;
                     case "2":
                         {
-                            ShowDossier(arrayFio, arrayRole);
+                            ShowDossier(Fio, Role);
                         }
                         break;
                     case "3":
                         {
-                            DeleteDossierInfo(ref arrayFio, ref arrayRole);
+                            DeleteDossierInfo(ref Fio, ref Role);
                         }
                         break;
                     case "4":
                         {
-                            SearchDossier(arrayFio, arrayRole);
+                            SearchDossier(Fio, Role);
                         }
                         break;
                     case "5":
@@ -49,46 +49,48 @@ namespace ConsoleApp1
                 }
             }
         }
-        static string[] AddDossierInfo(string[] arrayFio, string checkArrayFio)
+        static string[] AddDossierInfo(string[] Fio, string checkFio)
         {
-            string[] tempArrayFio = new string[arrayFio.Length + 1];
+            string[] tempFio = new string[Fio.Length + 1];
 
-            for (int i = 0; i < arrayFio.Length; i++)
+            for (int i = 0; i < Fio.Length; i++)
             {
-                tempArrayFio[i] = arrayFio[i];
+                tempFio[i] = Fio[i];
             }
-            arrayFio = tempArrayFio;
-            arrayFio[arrayFio.Length - 1] = checkArrayFio;
-            return arrayFio;
+
+            Fio = tempFio;
+            Fio[Fio.Length - 1] = checkFio;
+            return Fio;
         }
-        static void AddDossier(ref string[] arrayFio, ref string[] arrayRole)
+        static void AddDossier(ref string[] Fio, ref string[] Role)
         {
-            string newArrayFio;
-            string newArrayRole;
+            string newFio;
+            string newRole;
 
             Console.Clear();
             Console.WriteLine("Enter FIO: ");
-            newArrayFio = Console.ReadLine();
-            arrayFio = AddDossierInfo(arrayFio, newArrayFio);
+            newFio = Console.ReadLine();
+            Fio = AddDossierInfo(Fio, newFio);
             Console.WriteLine("Enter role: ");
-            newArrayRole = Console.ReadLine();
-            arrayRole = AddDossierInfo(arrayRole, newArrayRole);
+            newRole = Console.ReadLine();
+            Role = AddDossierInfo(Role, newRole);
             Console.ReadKey();
             Console.Clear();
         }
-        static void ShowDossier(string[] arrayFio, string[] arrayRole)
+        static void ShowDossier(string[] Fio, string[] Role)
         {
             int dosserNumber = 1;
 
-            for (int i = 0; i < arrayFio.Length; i++)
+            for (int i = 0; i < Fio.Length; i++)
             {
-                Console.Write(dosserNumber + " " + arrayFio[i] + " - " + arrayRole[i] + ". ");
+                Console.Write(dosserNumber + " " + Fio[i] + " - " + Role[i] + ". ");
                 dosserNumber++;
             }
+
             Console.WriteLine();
             Console.ReadKey();
         }
-        static void SearchDossier( string[] arrayFio, string[] arrayRole)
+        static void SearchDossier( string[] Fio, string[] Role)
         {
             string surname;
             bool isDossierFind = false;
@@ -96,21 +98,20 @@ namespace ConsoleApp1
             surname = Console.ReadLine();
             int dosserNumber = 0;
 
-            if (arrayFio.Length == 0)
+            if (Fio.Length == 0)
             {
                 Console.WriteLine("There is no dossier in the database.");
             }
 
-            if (arrayFio.Length != 0)
+            if (Fio.Length != 0)
             {
-
-                for (int i = 0; i < arrayFio.Length; i++)
+                for (int i = 0; i < Fio.Length; i++)
                 {
                     dosserNumber++;
 
-                    if (surname.ToLower() == arrayFio[i].ToLower())
+                    if (surname.ToLower() == Fio[i].ToLower())
                     {
-                        Console.WriteLine(dosserNumber + " " + arrayFio[i] + "-" + arrayRole[i] + ". ");
+                        Console.WriteLine(dosserNumber + " " + Fio[i] + "-" + Role[i] + ". ");
                         isDossierFind = true;
                     }
                 }
@@ -119,39 +120,39 @@ namespace ConsoleApp1
                 {
                     Console.WriteLine("Dossier not found.");
                 }
+
                 Console.WriteLine();
                 Console.ReadKey();
             }
         }
-        public static void DeleteDossierInfo(ref string[] arrayFio, ref string[] arrayRole)
+        public static void DeleteDossierInfo(ref string[] Fio, ref string[] Role)
         {
             string indexToDelete;
             Console.WriteLine("select the number of the dossier to be deleted");
             indexToDelete = Console.ReadLine();
-            arrayFio = DeleteDossier(arrayFio, indexToDelete);
-            arrayRole = DeleteDossier(arrayRole, indexToDelete);
+            Fio = DeleteDossier(Fio, indexToDelete);
+            Role = DeleteDossier(Role, indexToDelete);
         }
-        public static string[] DeleteDossier(string[] arrayFio, string indexToDelete)
+        public static string[] DeleteDossier(string[] Fio, string indexToDelete)
         {
             int indexChecker = Convert.ToInt32(indexToDelete);
 
-            if (indexChecker <= arrayFio.Length)
+            if (indexChecker <= Fio.Length)
             {
-
                 for (int i = 0; i < indexChecker; i++)
                 {
-
-                    for (int j = 0; j < arrayFio.Length - 1; j++)
+                    for (int j = 0; j < Fio.Length - 1; j++)
                     {
-                        indexToDelete = arrayFio[j];
-                        arrayFio[j] = arrayFio[j + 1];
-                        arrayFio[j + 1] = indexToDelete;
+                        indexToDelete = Fio[j];
+                        Fio[j] = Fio[j + 1];
+                        Fio[j + 1] = indexToDelete;
                     }
                 }
-                Array.Resize(ref arrayFio, arrayFio.Length - 1);
+
+                Array.Resize(ref Fio, Fio.Length - 1);
             }
 
-            else if (arrayFio.Length == 0)
+            else if (Fio.Length == 0)
             {
                 Console.WriteLine("No dossier found in database");
             }
@@ -159,9 +160,10 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("There is no dossier with this number");
             }
+
             Console.WriteLine();
             Console.ReadKey();
-            return arrayFio;
+            return Fio;
         }
     }
 }
