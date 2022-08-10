@@ -10,18 +10,18 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            const string NewDossier = "1";
+            const string ShowAllDossier = "2";
+            const string DeleteTheDossier = "3";
+            const string SearchTheDossier = "4";
+            const string ExitProgramm = "5";
             string[] fullNames = { "Ivanov Petr Sergeevich", "Petrov Sergei ivanovich", "Sergeev Ivan Petrovich" };
             string[] roles = { "doctor", "manager", "builder" };
             bool isWork = true;
 
             while (isWork)
             {
-                Console.Clear();
-                const string NewDossier = "1";
-                const string ShowAllDossier = "2";
-                const string DeleteTheDossier = "3";
-                const string SearchTheDossier = "4";
-                const string ExitProgramm = "5";
+                Console.Clear();                
                 Console.WriteLine($"{NewDossier} to add new dossier.\n{ShowAllDossier} to show all dossier.\n{DeleteTheDossier} to delete dossier.\n{SearchTheDossier} to search by surname.\n{ExitProgramm} to close the programm.");
                 string userInput = Console.ReadLine();
 
@@ -76,7 +76,6 @@ namespace ConsoleApp1
 
         static void ShowDossier(string[] fullNames, string[] roles)
         {
-
             for (int i = 0; i < fullNames.Length; i++)
             {
                 Console.Write(i + 1 + " " + fullNames[i] + " - " + roles[i] + ". ");
@@ -84,8 +83,7 @@ namespace ConsoleApp1
         }
 
         static void SearchDossier(string[] fullNames, string[] roles)
-        {
-            
+        {            
             bool isDossierFind = false;
             Console.WriteLine("Enter the surname to find dossier.");
             string findSurname = Console.ReadLine();
@@ -95,10 +93,8 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("There is no dossier in the database.");
             }
-
             else
             {
-
                 for (int i = 0; i < fullNames.Length; i++)
                 {
                     string words = fullNames[i];
