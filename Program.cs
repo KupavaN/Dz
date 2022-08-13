@@ -10,44 +10,32 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int healf = 5;
-            int maxHealf = 10;
-            int mana = 2;
-            int maxMana = 10;
-            int stamina = 7;
-            int maxStamina = 10;
 
-            DrawBar(healf, maxHealf, ConsoleColor.Red, 0, '#', '_');
-            DrawBar(mana, maxMana, ConsoleColor.Blue, 1, '#', '_');
-            DrawBar(stamina, maxStamina, ConsoleColor.Green, 2, '#', '_');
-
+            Readinteger();
         }
-
-        static void DrawBar(int value, int maxValue, ConsoleColor color, int position, char symbol, char symbolFull)
+        static int Readinteger()
         {
-            ConsoleColor defaultColor = Console.BackgroundColor;
-            string bar = "";
+            int convert = 0;
+            bool conversionIsDone = false;
 
-            for (int i = 0; i < value; i++)
+            while (conversionIsDone == false)
             {
-                bar += symbol;
+                Console.Write("Enter number: ");
+                string input = Console.ReadLine();
+                conversionIsDone = int.TryParse(input, out convert);
+
+                if (conversionIsDone == true)
+                {
+                    Console.WriteLine(convert);
+
+                }
+                else
+                {
+                    Console.WriteLine("The conversion failed. Try again");
+                }
             }
-
-            Console.SetCursorPosition(0, position);
-            Console.Write("[");
-            Console.BackgroundColor = color;
-            Console.Write(bar);
-            Console.BackgroundColor = defaultColor;
-            bar = "";
-
-            for (int i = value; i < maxValue; i++)
-            {
-                bar += symbolFull;
-            }
-
-            Console.Write(bar + "]");
-
-
+            return convert;
         }
+
     }
 }
