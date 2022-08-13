@@ -13,6 +13,7 @@ namespace ConsoleApp1
 
             Conversation();
         }
+
         static int Conversation()
         {
             int convert = 0;
