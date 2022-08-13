@@ -11,9 +11,9 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-            Readinteger();
+            Conversation();
         }
-        static int Readinteger()
+        static int Conversation()
         {
             int convert = 0;
             bool conversionIsDone = false;
