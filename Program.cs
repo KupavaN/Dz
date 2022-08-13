@@ -10,27 +10,22 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Conversation();
+            Console.WriteLine(ReadInt());
         }
 
-        static int Conversation()
+        static int ReadInt()
         {
             int convert = 0;
-            bool conversionIsDone = false;
+            bool isConversionDone = false;
 
-            while (conversionIsDone == false)
+            while (isConversionDone == false)
             {
                 Console.Write("Enter number: ");
                 string input = Console.ReadLine();
-                conversionIsDone = int.TryParse(input, out convert);
+                isConversionDone = int.TryParse(input, out convert);
 
-                if (conversionIsDone == true)
-                {
-                    Console.WriteLine(convert);
-
-                }
-                else
-                {
+                if (isConversionDone == false)
+                {                    
                     Console.WriteLine("The conversion failed. Try again");
                 }
             }
