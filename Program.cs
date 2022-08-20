@@ -14,13 +14,8 @@ namespace ConsoleApp1
             int[] array = { 2,4,8,9 };
             Random random = new Random();
 
-            for(int j = 0; j < array.Length; j++)
-            {
-                Console.Write(array[j]);                
-            }
-
-            Console.WriteLine();
-
+            CountArray(array);
+           
             for (int i = array.Length - 1; i >= 1; i--)
             {
                 int randomIndex = random.Next(i + 1);
@@ -29,11 +24,17 @@ namespace ConsoleApp1
                 array[i] = shuffleIndex;                
             }
 
+            Console.WriteLine();
+
+            CountArray(array);
+        }
+
+        static void CountArray(int[] array)
+        {
             for (int j = 0; j < array.Length; j++)
             {
                 Console.Write(array[j]);
             }
-
         }
     }
 }
