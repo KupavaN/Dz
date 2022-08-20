@@ -18,7 +18,7 @@ namespace ConsoleApp1
             int pacmanY;
             int pacmanDX = 0;
             int pacmanDY = 1;
-            string mapName = "map1";
+            string mapName = "map0";
 
             while (isGameMenuActive)
             {
@@ -33,11 +33,11 @@ namespace ConsoleApp1
                 }
                 else if (userInput == "2")
                 {
-                    mapName = MapCreation(mapName);                     
+                    mapName = MapCreation(mapName);
                     isGameMenuActive = false;
                     Console.CursorVisible = false;
 
-                }
+                }                               
                 else if (userInput == "3")
                 {
                     isGameMenuActive = false;
@@ -147,8 +147,9 @@ namespace ConsoleApp1
         }
 
         static string MapCreation(string mapName)
-        { 
-            mapName =("map2");
+        {
+            Console.WriteLine("Enter name for your map:");
+            mapName =Console.ReadLine();
             bool isCreating = true;
             Console.CursorVisible = true;
             Console.WriteLine("Now you are available to create your own map. \n Attention!!! The borders of the map must be equal");
