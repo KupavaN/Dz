@@ -79,16 +79,20 @@ namespace ConsoleApp1
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    changeXposition = -1; changeYposition = 0;
+                    changeXposition = -1; 
+                    changeYposition = 0;
                     break;
                 case ConsoleKey.DownArrow:
-                    changeXposition = 1; changeYposition = 0;
+                    changeXposition = 1; 
+                    changeYposition = 0;
                     break;
                 case ConsoleKey.LeftArrow:
-                    changeXposition = 0; changeYposition = -1;
+                    changeXposition = 0;
+                    changeYposition = -1;
                     break;
                 case ConsoleKey.RightArrow:
-                    changeXposition = 0; changeYposition = 1;
+                    changeXposition = 0;
+                    changeYposition = 1;
                     break;
                 case ConsoleKey.Escape:
                     isPlaying = false;
