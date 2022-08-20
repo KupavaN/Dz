@@ -14,10 +14,10 @@ namespace ConsoleApp1
             Console.CursorVisible = false;
             bool isPlaying = true;
             bool isGameMenuActive = true;
-            int pacmanX;
-            int pacmanY;
-            int pacmanDX = 0;
-            int pacmanDY = 1;
+            int pacmanXPosition;
+            int pacmanYPosition;
+            int pacmanMovementX = 0;
+            int pacmanMovementY = 1;
             string mapName = "map1";
 
             while (isGameMenuActive)
@@ -33,7 +33,7 @@ namespace ConsoleApp1
                 }
                 else if (userInput == "2")
                 {
-                    mapName = MapCreation(mapName);
+                    mapName = CreateMap (mapName);
                     isGameMenuActive = false;
                     Console.CursorVisible = false;
 
@@ -48,24 +48,24 @@ namespace ConsoleApp1
                     Console.WriteLine("Invalid input.");
                 }
             }
-            char[,] map = ReadMap(mapName, out pacmanX, out pacmanY);
+            char[,] map = ReadMap(mapName, out pacmanXPosition, out pacmanYPosition);
             DrawMap(map);
 
             while (isPlaying)
             {
-                Console.SetCursorPosition(pacmanY, pacmanX);
+                Console.SetCursorPosition(pacmanYPosition, pacmanXPosition);
                 Console.Write('@');
 
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
-                    ChangeDirection(key, ref pacmanDX, ref pacmanDY, ref isPlaying);
+                    ControlOfTheGame(key, ref pacmanMovementX, ref pacmanMovementY, ref isPlaying);
 
                 }
 
-                if (map[pacmanX + pacmanDX, pacmanY + pacmanDY] != '#')
+                if (map[pacmanXPosition + pacmanMovementX, pacmanYPosition + pacmanMovementY] != '#')
                 {
-                    Move(ref pacmanX, ref pacmanY, pacmanDX, pacmanDY);
+                    Move(ref pacmanXPosition, ref pacmanYPosition, pacmanMovementX, pacmanMovementY);
 
                 }
                 System.Threading.Thread.Sleep(160);
@@ -73,22 +73,22 @@ namespace ConsoleApp1
             }
         }
 
-        static void ChangeDirection(ConsoleKeyInfo key, ref int DX, ref int DY, ref bool isPlaying)
+        static void ControlOfTheGame(ConsoleKeyInfo key, ref int changeXposition, ref int changeYposition, ref bool isPlaying)
         {
             isPlaying = true;
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    DX = -1; DY = 0;
+                    changeXposition = -1; changeYposition = 0;
                     break;
                 case ConsoleKey.DownArrow:
-                    DX = 1; DY = 0;
+                    changeXposition = 1; changeYposition = 0;
                     break;
                 case ConsoleKey.LeftArrow:
-                    DX = 0; DY = -1;
+                    changeXposition = 0; changeYposition = -1;
                     break;
                 case ConsoleKey.RightArrow:
-                    DX = 0; DY = 1;
+                    changeXposition = 0; changeYposition = 1;
                     break;
                 case ConsoleKey.Escape:
                     isPlaying = false;
@@ -98,15 +98,15 @@ namespace ConsoleApp1
 
         }
 
-        static void Move(ref int X, ref int Y, int DX, int DY)
+        static void Move(ref int xPosition, ref int yPosition, int changeXposition, int hangeYposition)
         {
-            Console.SetCursorPosition(Y, X);
+            Console.SetCursorPosition(yPosition, xPosition);
             Console.WriteLine(" ");
 
-            X += DX;
-            Y += DY;
+            xPosition += changeXposition;
+            yPosition += hangeYposition;
 
-            Console.SetCursorPosition(Y, X);
+            Console.SetCursorPosition(yPosition, xPosition);
             Console.Write('@');
 
         }
@@ -123,10 +123,10 @@ namespace ConsoleApp1
             }
         }
 
-        static char[,] ReadMap(string mapName, out int pacmanX, out int pacmanY)
+        static char[,] ReadMap(string mapName, out int pacmanXPosition, out int pacmanYPosition)
         {
-            pacmanX = 0;
-            pacmanY = 0;
+            pacmanXPosition = 0;
+            pacmanYPosition = 0;
             string[] newFile = File.ReadAllLines($"maps/{mapName}.txt");
             char[,] map = new char[newFile.Length, newFile[0].Length];
 
@@ -138,15 +138,15 @@ namespace ConsoleApp1
 
                     if (map[i, j] == '@')
                     {
-                        pacmanX = i;
-                        pacmanY = j;
+                        pacmanXPosition = i;
+                        pacmanYPosition = j;
                     }
                 }
             }
             return map;
         }
 
-        static string MapCreation(string mapName)
+        static string CreateMap(string mapName)
         {
             Console.WriteLine("Enter name for your map:");
             mapName =Console.ReadLine();
