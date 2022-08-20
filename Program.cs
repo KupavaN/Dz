@@ -33,8 +33,7 @@ namespace ConsoleApp1
                 }
                 else if (userInput == "2")
                 {
-                    MapCreation(mapName);
-                    mapName = "map2";
+                    mapName = MapCreation(mapName);                     
                     isGameMenuActive = false;
                     Console.CursorVisible = false;
 
