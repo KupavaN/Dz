@@ -13,10 +13,10 @@ namespace ConsoleApp1
         {
             int[] array = { 2,4,8,9 };
                                             
-            CountArray(array);
+            MixArray(array);
         }
 
-        static void CountArray(int[] array)
+        static void MixArray(int[] array)
         {
             Random random = new Random();
 
