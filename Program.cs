@@ -18,7 +18,7 @@ namespace ConsoleApp1
             int pacmanY;
             int pacmanDX = 0;
             int pacmanDY = 1;
-            string mapName = "map0";
+            string mapName = "map1";
 
             while (isGameMenuActive)
             {
