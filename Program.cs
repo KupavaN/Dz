@@ -19,28 +19,14 @@ namespace ConsoleApp1
         static void MixArray(int[] array)
         {
             Random random = new Random();
-
-            for (int j = 0; j < array.Length; j++)
-            {
-                Console.Write(array[j]);
-            }
-
+            
             for (int i = array.Length - 1; i >= 1; i--)
             {
                 int randomIndex = random.Next(i + 1);
                 int shuffleIndex = array[randomIndex];
                 array[randomIndex] = array[i];
                 array[i] = shuffleIndex;
-            }
-
-            Console.WriteLine();
-
-            for (int j = 0; j < array.Length; j++)
-            {
-                Console.Write(array[j]);
-            }
-
-            Console.WriteLine();
+            }            
 
         }
     }
