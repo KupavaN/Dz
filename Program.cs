@@ -26,7 +26,7 @@ namespace ConsoleApp1
             while (isDictionaryOpen)
             {
                 Console.WriteLine("There are 4 words in our dictionary : Waterlemon, Apple, Pie, Gold.");
-                Console.WriteLine("1 - if you want enter the wold. \n2 - Close the dictionary ");
+                Console.WriteLine("1 - Enter the word you want to know the meaning of. \n2 - Close the dictionary ");
                 int chooseStep = Convert.ToInt32(Console.ReadLine());
 
                 if (chooseStep == 1)
