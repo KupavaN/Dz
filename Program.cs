@@ -11,44 +11,38 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            List<string> words = new List<string>();
-            List<string> wordsMeaning = new List<string>();
-            words.Add("Watermelon");
-            words.Add("Apple");
-            words.Add("Pie");
-            words.Add("Gold");
-            wordsMeaning.Add("A large, round, green fruit that is pink inside with a lot of black seeds");
-            wordsMeaning.Add("A hard, round fruit with a green or red skin");
-            wordsMeaning.Add("A type of food made with meat, vegetables, or fruit which is covered in pastry and baked");
-            wordsMeaning.Add("A valuable, shiny, yellow metal used to make coins and jewellery (symbol Au)");
+            Dictionary<int, string> dictionary = new Dictionary<int, string>()
+            {
+                {1,"A large, round, green fruit that is pink inside with a lot of black seeds" },
+                {2, "A hard, round fruit with a green or red skin" },
+                {3, "A type of food made with meat, vegetables, or fruit which is covered in pastry and baked" },
+                {4, "A valuable, shiny, yellow metal used to make coins and jewellery (symbol Au)" }
+            };
+            const string Watermelon = "1";
+            const string Apple = "2";
+            const string Pie = "3";
+            const string Gold = "4";
+
             bool isDictionaryOpen = true;
-            
+
             while (isDictionaryOpen)
             {
-                Console.WriteLine("There are 4 words in our dictionary : Waterlemon, Apple, Pie, Gold.");
-                Console.WriteLine("1 - Enter the word you want to know the meaning of. \n2 - Close the dictionary ");
-                int chooseStep = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine($"There are 4 words in our dictionary :Watermelon = {Watermelon},Apple = {Apple},Pie = {Pie},Gold = {Gold}.");
+                Console.WriteLine("Enter the number of the word you want to know the meaning of. \n0 - Close the dictionary ");
+                int userInput = Convert.ToInt32(Console.ReadLine());
 
-                if (chooseStep == 1)
+                if (dictionary.ContainsKey(userInput))
                 {
-                    Console.WriteLine("Enter the word:");
-                    string userInput = Console.ReadLine();
-
-                    for (int i = 0; i < words.Count; i++)
-                    {
-                        if (userInput == words[i])
-                        {
-                            Console.WriteLine(wordsMeaning[i]);
-                            Console.Read();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Unknown word.");
-                            Console.Read();                            
-                        }
-                    }
+                    Console.WriteLine(dictionary[userInput]);
+                    Console.Read();
                 }
-                else if (chooseStep == 2)
+                else if (userInput !=0 )
+                {
+                    Console.WriteLine("Unknown word.");
+                    Console.Read();
+                }
+
+                if (userInput == 0)
                 {
                     isDictionaryOpen = false;
                 }
@@ -57,9 +51,8 @@ namespace ConsoleApp1
                     Console.WriteLine("Incorrect input.");
                     Console.Read();
                 }
-                Console.Clear();
-                Console.Read();
-            }            
+                Console.Clear();                
+            }
         }
     }
 }
