@@ -11,26 +11,50 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Queue <int> buyers = new Queue<int>();
-            buyers.Enqueue(100);
-            buyers.Enqueue(75);
-            buyers.Enqueue(380);
-            buyers.Enqueue(97);
-            buyers.Enqueue(34);
-            buyers.Enqueue(421);
-            int till = 0;
-            
-            while (buyers.Count > 0)
-            {
-                Console.WriteLine($"Cash in till: {till}. Press any button to serve the buyer\n");
-                Console.ReadKey();
-                Console.Clear();
-                till += buyers.Dequeue();                
-            }
+            List<int> numbers = new List<int>(0);
+            bool isProgrammOpen = true;
 
-            Console.WriteLine($"Cash in till: {till}. All buyers served. Press any button to close the programm. \n");
-            Console.ReadKey();
-            Console.Clear();
+            while (isProgrammOpen)
+            {                
+                Console.WriteLine("Enter 1 to add the number to the list. \nEnter sum to sum numbers in the list.\nEnter exit to exit the programm.");
+                string choosePoint = Console.ReadLine();
+
+                if (choosePoint == "1")
+                {
+                    Console.WriteLine("Enter numbers whitch you want to add to the list");
+                    string userInput = Console.ReadLine();
+                    int addNumber = 0;
+                    bool isTrue;
+                    isTrue = int.TryParse(userInput, out addNumber);
+
+                    if (isTrue)
+                    {
+                        numbers.Add(addNumber);                        
+                    }                                                                    
+                }
+                else if (choosePoint == "exit")
+                {
+                    isProgrammOpen = false;
+                }
+                else if (choosePoint == "sum")
+                {
+                    int sum = 0;
+
+                    for(int i = 0; i < numbers.Count; i++)
+                    {
+                        sum += numbers[i];
+                    }
+
+                    Console.WriteLine(sum);
+                    Console.Read();
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect input");
+                }
+
+                Console.Clear();                               
+            }
         }
     }
 }
