@@ -15,6 +15,7 @@ namespace ConsoleApp1
             bool isProgrammOpen = true;            
             const string SumList = "sum";
             const string Exit = "exit";
+            int addNumber = 0;
 
             while (isProgrammOpen)
             {                
@@ -29,16 +30,9 @@ namespace ConsoleApp1
                 {
                     Sum(numbers);                   
                 }
-                else
-                {
-                    int addNumber = 0;
-                    bool isTrue;
-                    isTrue = int.TryParse(userInput, out addNumber);
-
-                    if (isTrue)
-                    {
-                        numbers.Add(addNumber);
-                    }
+                else if (int.TryParse(userInput, out addNumber))
+                {                                                        
+                        numbers.Add(addNumber);                    
                 }
 
                 Console.Clear();                               
