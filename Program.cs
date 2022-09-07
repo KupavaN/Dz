@@ -13,13 +13,16 @@ namespace ConsoleApp1
         {
             List<int> numbers = new List<int>(0);
             bool isProgrammOpen = true;
+            const string AddNumber = "add";
+            const string SumList = "sum";
+            const string Exit = "exit";
 
             while (isProgrammOpen)
             {                
-                Console.WriteLine("Enter 1 to add the number to the list. \nEnter sum to sum numbers in the list.\nEnter exit to exit the programm.");
+                Console.WriteLine($"Enter {AddNumber} to add the number to the list. \nEnter {SumList} to sum numbers in the list.\nEnter {Exit} to exit the programm.");
                 string choosePoint = Console.ReadLine();
 
-                if (choosePoint == "1")
+                if (choosePoint == AddNumber)
                 {
                     Console.WriteLine("Enter numbers whitch you want to add to the list");
                     string userInput = Console.ReadLine();
@@ -32,21 +35,13 @@ namespace ConsoleApp1
                         numbers.Add(addNumber);                        
                     }                                                                    
                 }
-                else if (choosePoint == "exit")
+                else if (choosePoint == Exit)
                 {
                     isProgrammOpen = false;
                 }
-                else if (choosePoint == "sum")
+                else if (choosePoint == SumList)
                 {
-                    int sum = 0;
-
-                    for(int i = 0; i < numbers.Count; i++)
-                    {
-                        sum += numbers[i];
-                    }
-
-                    Console.WriteLine(sum);
-                    Console.Read();
+                    Sum(numbers);                   
                 }
                 else
                 {
@@ -55,6 +50,19 @@ namespace ConsoleApp1
 
                 Console.Clear();                               
             }
+        }
+
+        static void Sum(List<int> numbers)
+        {
+            int sum = 0;
+
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                sum += numbers[i];
+            }
+
+            Console.WriteLine(sum);
+            Console.Read();
         }
     }
 }
