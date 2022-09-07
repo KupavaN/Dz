@@ -12,40 +12,33 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             List<int> numbers = new List<int>(0);
-            bool isProgrammOpen = true;
-            const string AddNumber = "add";
+            bool isProgrammOpen = true;            
             const string SumList = "sum";
             const string Exit = "exit";
 
             while (isProgrammOpen)
             {                
-                Console.WriteLine($"Enter {AddNumber} to add the number to the list. \nEnter {SumList} to sum numbers in the list.\nEnter {Exit} to exit the programm.");
-                string choosePoint = Console.ReadLine();
+                Console.WriteLine($"Enter numbers whitch you want to add to the list \nEnter {SumList} to sum numbers in the list.\nEnter {Exit} to exit the programm.");
+                string userInput = Console.ReadLine();
 
-                if (choosePoint == AddNumber)
+                if (userInput == Exit)
+                {                                                                                                                                           
+                    isProgrammOpen = false;
+                }
+                else if (userInput == SumList)
                 {
-                    Console.WriteLine("Enter numbers whitch you want to add to the list");
-                    string userInput = Console.ReadLine();
+                    Sum(numbers);                   
+                }
+                else
+                {
                     int addNumber = 0;
                     bool isTrue;
                     isTrue = int.TryParse(userInput, out addNumber);
 
                     if (isTrue)
                     {
-                        numbers.Add(addNumber);                        
-                    }                                                                    
-                }
-                else if (choosePoint == Exit)
-                {
-                    isProgrammOpen = false;
-                }
-                else if (choosePoint == SumList)
-                {
-                    Sum(numbers);                   
-                }
-                else
-                {
-                    Console.WriteLine("Incorrect input");
+                        numbers.Add(addNumber);
+                    }
                 }
 
                 Console.Clear();                               
