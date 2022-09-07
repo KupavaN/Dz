@@ -11,45 +11,81 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            List<int> numbers = new List<int>(0);
-            bool isProgrammOpen = true;            
-            const string SumList = "sum";
-            const string Exit = "exit";
-            int addNumber = 0;
+            Dictionary<string, string> staff = new Dictionary<string, string>();
+            staff.Add("Petrov Ivan Sidorovich", "engeneer");
+            staff.Add("Ivanov Sidor Petrovich", "driver");
+            staff.Add("Sidorov Petr Ivanovich", "artist");
+            bool isWork = true;
+            const string NewDossier = "1";
+            const string ShowAllDossier = "2";
+            const string DossierToRemove = "3";
+            const string Exit = "4";
 
-            while (isProgrammOpen)
-            {                
-                Console.WriteLine($"Enter numbers whitch you want to add to the list \nEnter {SumList} to sum numbers in the list.\nEnter {Exit} to exit the programm.");
+            while (isWork)
+            {
+                Console.WriteLine($"Add dossier - {NewDossier} \n" +
+                    $"Show dossier - {ShowAllDossier} \n" +
+                    $"Remove dossier -{DossierToRemove} \n" +
+                    $"Exit programm -{Exit}");
                 string userInput = Console.ReadLine();
 
-                if (userInput == Exit)
-                {                                                                                                                                           
-                    isProgrammOpen = false;
-                }
-                else if (userInput == SumList)
+                if (userInput == NewDossier)
                 {
-                    Sum(numbers);                   
+                    AddDossier(staff);
                 }
-                else if (int.TryParse(userInput, out addNumber))
-                {                                                        
-                        numbers.Add(addNumber);                    
+                else if (userInput == ShowAllDossier)
+                {
+                    ShowDossier(staff);
+                }
+                else if (userInput == DossierToRemove)
+                {
+                    RemoveDossier(staff);
+                }
+                else if (userInput == Exit)
+                {
+                    isWork = false;
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect input.");
                 }
 
-                Console.Clear();                               
+                Console.ReadKey();
+                Console.Clear();
             }
         }
 
-        static void Sum(List<int> numbers)
+        static void AddDossier(Dictionary<string, string> staff)
         {
-            int sum = 0;
+            Console.WriteLine("Enter new employee data");
+            String newWorkerData = Console.ReadLine();
+            Console.WriteLine("Enter new employee position");
+            String newWorkerposition = Console.ReadLine();
+            staff.Add(newWorkerData, newWorkerposition);
+        }
 
-            for (int i = 0; i < numbers.Count; i++)
+        static void ShowDossier(Dictionary<string, string> staff)
+        {
+            foreach (var item in staff)
             {
-                sum += numbers[i];
+                Console.WriteLine($"{item.Key} - {item.Value}");
             }
+        }
 
-            Console.WriteLine(sum);
-            Console.Read();
+        static void RemoveDossier(Dictionary<string, string> staff)
+        {
+            Console.WriteLine("Enter employee data to delete it");
+            String deleteWorkerData = Console.ReadLine();
+            staff.Remove(deleteWorkerData);
+
+            foreach (var item in staff)
+            {
+                if (item.Key != deleteWorkerData)
+                {
+                    Console.WriteLine("No employee found.");
+                    break;
+                }
+            }
         }
     }
 }
