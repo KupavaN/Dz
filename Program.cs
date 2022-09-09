@@ -11,15 +11,15 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            const string NewDossier = "1";
+            const string ShowAllDossier = "2";
+            const string DossierToRemove = "3";
+            const string Exit = "4";
             Dictionary<string, string> staff = new Dictionary<string, string>();
             staff.Add("Petrov Ivan Sidorovich", "engeneer");
             staff.Add("Ivanov Sidor Petrovich", "driver");
             staff.Add("Sidorov Petr Ivanovich", "artist");
             bool isWork = true;
-            const string NewDossier = "1";
-            const string ShowAllDossier = "2";
-            const string DossierToRemove = "3";
-            const string Exit = "4";
 
             while (isWork)
             {
@@ -29,25 +29,23 @@ namespace ConsoleApp1
                     $"Exit programm -{Exit}");
                 string userInput = Console.ReadLine();
 
-                if (userInput == NewDossier)
+                switch (userInput)
                 {
-                    AddDossier(staff);
-                }
-                else if (userInput == ShowAllDossier)
-                {
-                    ShowDossier(staff);
-                }
-                else if (userInput == DossierToRemove)
-                {
-                    RemoveDossier(staff);
-                }
-                else if (userInput == Exit)
-                {
-                    isWork = false;
-                }
-                else
-                {
-                    Console.WriteLine("Incorrect input.");
+                    case NewDossier:
+                        AddDossier(ref staff);
+                        break;
+                    case ShowAllDossier:
+                        ShowDossier(staff);
+                        break;
+                    case DossierToRemove:
+                        RemoveDossier(ref staff);
+                        break;
+                    case Exit:
+                        isWork = false;
+                        break;
+                    default:
+                        Console.WriteLine("Incorrect input.");
+                        break;
                 }
 
                 Console.ReadKey();
@@ -55,36 +53,43 @@ namespace ConsoleApp1
             }
         }
 
-        static void AddDossier(Dictionary<string, string> staff)
+        static void AddDossier(ref Dictionary<string, string> staff)
         {
             Console.WriteLine("Enter new employee data");
             String newWorkerData = Console.ReadLine();
             Console.WriteLine("Enter new employee position");
             String newWorkerposition = Console.ReadLine();
-            staff.Add(newWorkerData, newWorkerposition);
+
+            if (staff.ContainsKey(newWorkerData) == false)
+            {
+                staff.Add(newWorkerData, newWorkerposition);
+            }
+            else
+            {
+                Console.WriteLine("This data is already in the database");
+            }
         }
 
         static void ShowDossier(Dictionary<string, string> staff)
         {
-            foreach (var item in staff)
+            foreach (var person in staff)
             {
-                Console.WriteLine($"{item.Key} - {item.Value}");
+                Console.WriteLine($"{person.Key} - {person.Value}");
             }
         }
 
-        static void RemoveDossier(Dictionary<string, string> staff)
+        static void RemoveDossier(ref Dictionary<string, string> staff)
         {
             Console.WriteLine("Enter employee data to delete it");
             String deleteWorkerData = Console.ReadLine();
-            staff.Remove(deleteWorkerData);
 
-            foreach (var item in staff)
+            if (staff.ContainsKey(deleteWorkerData) == false)
             {
-                if (item.Key != deleteWorkerData)
-                {
-                    Console.WriteLine("No employee found.");
-                    break;
-                }
+                Console.WriteLine("No employee found.");
+            }
+            else
+            {
+                staff.Remove(deleteWorkerData);                
             }
         }
     }
