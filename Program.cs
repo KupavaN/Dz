@@ -32,13 +32,13 @@ namespace ConsoleApp1
                 switch (userInput)
                 {
                     case NewDossier:
-                        AddDossier(ref staff);
+                        AddDossier(staff);
                         break;
                     case ShowAllDossier:
                         ShowDossier(staff);
                         break;
                     case DossierToRemove:
-                        RemoveDossier(ref staff);
+                        RemoveDossier(staff);
                         break;
                     case Exit:
                         isWork = false;
@@ -53,12 +53,12 @@ namespace ConsoleApp1
             }
         }
 
-        static void AddDossier(ref Dictionary<string, string> staff)
+        static void AddDossier(Dictionary<string, string> staff)
         {
             Console.WriteLine("Enter new employee data");
-            String newWorkerData = Console.ReadLine();
+            string newWorkerData = Console.ReadLine();
             Console.WriteLine("Enter new employee position");
-            String newWorkerposition = Console.ReadLine();
+            string newWorkerposition = Console.ReadLine();
 
             if (staff.ContainsKey(newWorkerData) == false)
             {
@@ -78,10 +78,10 @@ namespace ConsoleApp1
             }
         }
 
-        static void RemoveDossier(ref Dictionary<string, string> staff)
+        static void RemoveDossier(Dictionary<string, string> staff)
         {
             Console.WriteLine("Enter employee data to delete it");
-            String deleteWorkerData = Console.ReadLine();
+            string deleteWorkerData = Console.ReadLine();
 
             if (staff.ContainsKey(deleteWorkerData) == false)
             {
