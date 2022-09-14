@@ -15,8 +15,8 @@ namespace ConsoleApp1
             int[] array2 = { 3, 2 };
             List<int> list = new List<int>();
 
-            Unification(list, array1.Length, array1);
-            Unification(list, array2.Length, array2);
+            MergeArray(list, array1.Length, array1);
+            MergeArray(list, array2.Length, array2);
 
             foreach (int number in list)
             {
@@ -24,7 +24,7 @@ namespace ConsoleApp1
             }
         }
 
-        static void Unification(List<int> list, int arrayLength, int[] array)
+        static void MergeArray(List<int> list, int arrayLength, int[] array)
         {
             for (int i = 0; i < arrayLength; i++)
             {
