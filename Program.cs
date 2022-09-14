@@ -11,40 +11,26 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int[] array = new int[] { 4, 3, 2 ,1};
-            int[] array2 = new int[] { 2, 3, 5};
-            int[] array3 = new int[] { };
+            int[] array1 = { 1, 2, 1, };
+            int[] array2 = { 3, 2 };
             List<int> list = new List<int>();
 
-            if (array.Length > array2.Length)
-            {
-                array3 = array;
-                Converter(array2, array, array3);
-            }
-            else
-            {
-                array3 = array2;
-                Converter(array, array2, array3);
-            }
+            Unification(list, array1.Length, array1);
+            Unification(list, array2.Length, array2);
 
-            for (int i = 0; i < array3.Length; i++)
+            foreach (int number in list)
             {
-                list.Add(array3[i]);
-            }
-
-            foreach (int i in list)
-            {
-                Console.WriteLine(i);
+                Console.WriteLine(number);
             }
         }
 
-        static void Converter(int[] array, int[] array2, int[] array3)
+        static void Unification(List<int> list, int arrayLength, int[] array)
         {
-            for (int j = 0; j < array.Length; j++)
+            for (int i = 0; i < arrayLength; i++)
             {
-                if (array[j] > array3[j])
+                if (list.Contains(array[i]) == false)
                 {
-                    array3[j] = array[j];
+                    list.Add(array[i]);
                 }
             }
         }
