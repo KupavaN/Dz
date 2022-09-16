@@ -11,27 +11,48 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int[] array1 = { 1, 2, 1, };
-            int[] array2 = { 3, 2 };
-            List<int> list = new List<int>();
-
-            MergeArray(list, array1.Length, array1);
-            MergeArray(list, array2.Length, array2);
-
-            foreach (int number in list)
-            {
-                Console.WriteLine(number);
-            }
+            player player1 = new player(3,7,2,3,4,7,9);
+            player1.showStats();            
         }
 
-        static void MergeArray(List<int> list, int arrayLength, int[] array)
+        class player
         {
-            for (int i = 0; i < arrayLength; i++)
+            int Strength;
+            int Perception;
+            int Endurance;
+            int Charisma;
+            int Intelligence;
+            int Agility;
+            int Luck;
+
+            public player(int strength,int perception, int endurance,int charisma,
+                int intelligence, int agility, int luck)
             {
-                if (list.Contains(array[i]) == false)
-                {
-                    list.Add(array[i]);
-                }
+                Strength= strength;
+                Perception= perception;
+                Endurance= endurance;
+                Charisma= charisma;
+                Intelligence= intelligence;
+                Agility= agility;
+                Luck= luck;
+            }
+
+            public player()
+            {
+                Strength = 1;
+                Perception = 1;
+                Endurance = 1;
+                Charisma = 1;
+                Intelligence = 1;
+                Agility = 1;
+                Luck = 1;
+            }
+
+            public void showStats()
+            {
+                Console.WriteLine($"Strength - {Strength}\nPerception - {Perception}\n" +
+                    $"Endurance - {Endurance}\nCharisma - {Charisma}\nIntelligence - {Intelligence}\n" +
+                    $"Agility - {Agility}\nLuck - {Luck} ");
             }
         }
     }
