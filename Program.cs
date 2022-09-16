@@ -12,48 +12,48 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Player player1 = new Player(3, 7, 2, 3, 4, 7, 9);
-            player1.showStats();
+            player1.ShowStats();
         }
     }
 
     class Player
     {
-        int Strength;
-        int Perception;
-        int Endurance;
-        int Charisma;
-        int Intelligence;
-        int Agility;
-        int Luck;
+        private int _strength;
+        private int _perception;
+        private int _endurance;
+        private int _charisma;
+        private int _intelligence;
+        private int _agility;
+        private int _luck;
 
         public Player(int strength, int perception, int endurance, int charisma,
             int intelligence, int agility, int luck)
         {
-            Strength = strength;
-            Perception = perception;
-            Endurance = endurance;
-            Charisma = charisma;
-            Intelligence = intelligence;
-            Agility = agility;
-            Luck = luck;
+            _strength = strength;
+            _perception = perception;
+            _endurance = endurance;
+            _charisma = charisma;
+            _intelligence = intelligence;
+            _agility = agility;
+            _luck = luck;
         }
 
         public Player()
         {
-            Strength = 1;
-            Perception = 1;
-            Endurance = 1;
-            Charisma = 1;
-            Intelligence = 1;
-            Agility = 1;
-            Luck = 1;
+            _strength = 1;
+            _perception = 1;
+            _endurance = 1;
+            _charisma = 1;
+            _intelligence = 1;
+            _agility = 1;
+            _luck = 1;
         }              
 
         public void ShowStats()
         {
-            Console.WriteLine($"Strength - {Strength}\nPerception - {Perception}\n" +
-                $"Endurance - {Endurance}\nCharisma - {Charisma}\nIntelligence - {Intelligence}\n" +
-                $"Agility - {Agility}\nLuck - {Luck} ");
+            Console.WriteLine($"Strength - {_strength}\nPerception - {_perception}\n" +
+                $"Endurance - {_endurance}\nCharisma - {_charisma}\nIntelligence - {_intelligence}\n" +
+                $"Agility - {_agility}\nLuck - {_luck} ");
         }
     }
 }
