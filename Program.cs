@@ -49,16 +49,8 @@ namespace ConsoleApp1
             Luck = 1;
         }
 
-        public Player(char sigmarr = 's')
-        {
-            Strength = 4;
-            Perception = 3;
-            Endurance = 5;
-            Charisma = 1;
-            Intelligence = 1;
-            Agility = 4;
-            Luck = 8;
-        }
+        
+        
 
         public void ShowStats()
         {
