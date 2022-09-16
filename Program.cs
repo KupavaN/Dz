@@ -11,19 +11,19 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            player player1 = new player(3,7,2,3,4,7,9);
-            player1.showStats();            
+            player player1 = new player(3, 7, 2, 3, 4, 7, 9);
+            player1.showStats();                   
         }
 
         class player
         {
-            int Strength;
-            int Perception;
-            int Endurance;
-            int Charisma;
-            int Intelligence;
-            int Agility;
-            int Luck;
+            public int Strength;
+            public int Perception;
+            public int Endurance;
+            public int Charisma;
+            public int Intelligence;
+            public int Agility;
+            public int Luck;
 
             public player(int strength,int perception, int endurance,int charisma,
                 int intelligence, int agility, int luck)
@@ -47,7 +47,7 @@ namespace ConsoleApp1
                 Agility = 1;
                 Luck = 1;
             }
-
+            
             public void showStats()
             {
                 Console.WriteLine($"Strength - {Strength}\nPerception - {Perception}\n" +
