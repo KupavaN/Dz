@@ -18,13 +18,13 @@ namespace ConsoleApp1
 
     class Player
     {
-        public int Strength;
-        public int Perception;
-        public int Endurance;
-        public int Charisma;
-        public int Intelligence;
-        public int Agility;
-        public int Luck;
+        int Strength;
+        int Perception;
+        int Endurance;
+        int Charisma;
+        int Intelligence;
+        int Agility;
+        int Luck;
 
         public Player(int strength, int perception, int endurance, int charisma,
             int intelligence, int agility, int luck)
@@ -49,7 +49,18 @@ namespace ConsoleApp1
             Luck = 1;
         }
 
-        public void showStats()
+        public Player(char sigmarr = 's')
+        {
+            Strength = 4;
+            Perception = 3;
+            Endurance = 5;
+            Charisma = 1;
+            Intelligence = 1;
+            Agility = 4;
+            Luck = 8;
+        }
+
+        public void ShowStats()
         {
             Console.WriteLine($"Strength - {Strength}\nPerception - {Perception}\n" +
                 $"Endurance - {Endurance}\nCharisma - {Charisma}\nIntelligence - {Intelligence}\n" +
