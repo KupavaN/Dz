@@ -47,10 +47,7 @@ namespace ConsoleApp1
             Intelligence = 1;
             Agility = 1;
             Luck = 1;
-        }
-
-        
-        
+        }              
 
         public void ShowStats()
         {
