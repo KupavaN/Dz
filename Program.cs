@@ -14,31 +14,34 @@ namespace ConsoleApp1
             Renderer renderer = new Renderer();
             Player player = new Player(10, 3);
 
-            renderer.DrawPlayer(player.X, player.Y);
+            renderer.DrawPlayer(player.XPosition, player.YPosition);
         }
     }
 
     class Renderer
     {
 
-        public void DrawPlayer(int x, int y, char ch = '&')
+        public void DrawPlayer(int xPosition, int yPosition, char positionSymbol = ' ')
         {
-            Console.SetCursorPosition (x, y);
-            Console.Write(ch);
+            Console.WriteLine("Enter symbol that will mark your place");
+            char userSymbol = Convert.ToChar(Console.Read());
+            Console.SetCursorPosition (xPosition, yPosition);            
+            positionSymbol = userSymbol;
+            Console.Write(positionSymbol);
         }
     }
 
     class Player
     {
 
-        public int X { get; private set; }
+        public int XPosition { get; private set; }
 
-        public int Y { get; private set; }
+        public int YPosition { get; private set; }
 
-        public Player(int x, int y)
+        public Player(int xPosition, int yPosition)
         {
-            X = x;
-            Y = y;
+            XPosition = xPosition;
+            YPosition = yPosition;
         }
     }
 }
