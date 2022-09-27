@@ -11,49 +11,34 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Player player1 = new Player(3, 7, 2, 3, 4, 7, 9);
-            player1.ShowStats();
+            Renderer renderer = new Renderer();
+            Player player = new Player(10, 3);
+
+            renderer.DrawPlayer(player.X, player.Y);
+        }
+    }
+
+    class Renderer
+    {
+
+        public void DrawPlayer(int x, int y, char ch = '&')
+        {
+            Console.SetCursorPosition (x, y);
+            Console.Write(ch);
         }
     }
 
     class Player
     {
-        private int _strength;
-        private int _perception;
-        private int _endurance;
-        private int _charisma;
-        private int _intelligence;
-        private int _agility;
-        private int _luck;
 
-        public Player(int strength, int perception, int endurance, int charisma,
-            int intelligence, int agility, int luck)
-        {
-            _strength = strength;
-            _perception = perception;
-            _endurance = endurance;
-            _charisma = charisma;
-            _intelligence = intelligence;
-            _agility = agility;
-            _luck = luck;
-        }
+        public int X { get; private set; }
 
-        public Player()
-        {
-            _strength = 1;
-            _perception = 1;
-            _endurance = 1;
-            _charisma = 1;
-            _intelligence = 1;
-            _agility = 1;
-            _luck = 1;
-        }              
+        public int Y { get; private set; }
 
-        public void ShowStats()
+        public Player(int x, int y)
         {
-            Console.WriteLine($"Strength - {_strength}\nPerception - {_perception}\n" +
-                $"Endurance - {_endurance}\nCharisma - {_charisma}\nIntelligence - {_intelligence}\n" +
-                $"Agility - {_agility}\nLuck - {_luck} ");
+            X = x;
+            Y = y;
         }
     }
 }
