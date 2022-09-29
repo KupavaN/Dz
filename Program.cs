@@ -85,21 +85,48 @@ namespace ConsoleApp1
     class Database
     {
         private Dictionary<int, Player> _players = new Dictionary<int, Player>();
-        
-        private int _indexInBase;        
+                
+        public List<int> index = new List<int>();
+
+        public string LasyNaming = "Player";
+        public int LasyNamingCount = 1;
 
         public void AddPlayer()
         {
             Console.WriteLine("Enter player index:");
-            _indexInBase =Convert.ToInt32(Console.ReadLine());            
-            Console.WriteLine("Enter player nickname");
-            string nickName = Console.ReadLine();
-            Console.WriteLine("Enter player level:");
-            bool isNumber = int.TryParse(Console.ReadLine(), out int level);
+            bool isNumber = int.TryParse(Console.ReadLine(), out int _indexInBase);
 
             if (isNumber == false)
             {
-                Console.WriteLine("Incorrect input. Level must contain inly numbers. \nExample: 10"); 
+                Console.WriteLine("Incorrect input. Index must contain only numbers. \nExample: 1548");
+                return;
+            }
+
+            if (index.Contains(_indexInBase))
+            {
+                Console.WriteLine("This index is already in use. \nTry another.");
+                return;
+            }
+            else
+            {
+                index.Add(_indexInBase);
+            }
+           
+            Console.WriteLine("Enter player nickname");
+            string nickName = Console.ReadLine();
+
+            if(nickName == "")
+            {
+                nickName = LasyNaming + LasyNamingCount;
+                LasyNamingCount++;
+                
+            }
+            Console.WriteLine("Enter player level:");
+            isNumber = int.TryParse(Console.ReadLine(), out int level);
+
+            if (isNumber == false)
+            {
+                Console.WriteLine("Incorrect input. Level must contain only numbers. \nExample: 10"); 
                 return;
             }
 
@@ -130,10 +157,10 @@ namespace ConsoleApp1
             Console.WriteLine("Enter user identifier");
             bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
 
-            if (isNumber == true && _players.ContainsKey(identifier) == true)
-            {                
+            if (isNumber == true && _players.ContainsKey(identifier) == true && index.Contains(identifier))
+            {
+                index.Remove(identifier);
                 _players.Remove(identifier);
-                Console.WriteLine("Player successfully delete.");
             }
             else
             {
@@ -143,13 +170,14 @@ namespace ConsoleApp1
 
         public void ShowData()
         {
-            if (_players.Count != 0)
+            if (index.Count != 0)
             {
                 
-                for (int i = 0; i < _players.Count; i++)
+                for (int i = 0; i < index.Count; i++)
                 {
-                    _players[i].ShowInfo();
-                    Console.WriteLine($"identifier:{i}");
+                    int checker = index[i];
+                    _players[checker].ShowInfo();
+                    Console.WriteLine($"identifier:{index[i]}");
                     Console.WriteLine();
                 }               
             }
