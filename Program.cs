@@ -22,6 +22,7 @@ namespace ConsoleApp1
                 Console.Clear();
                 Console.WriteLine("1-add new player \n2-delete player \n3-ban player \n4-unban player \n5-Show all player's \n6-Exit");
                 userInput = Console.ReadLine();
+
                 switch (userInput)
                 {
                     case "1":
