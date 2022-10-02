@@ -11,7 +11,13 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Database dataBase = new Database();
+            const string AddPlayer = "1";
+            const string DeletePlayer = "2";
+            const string Ban = "3";
+            const string UnBan = "4";
+            const string ShowPlayers = "5";
+            const string Exit = "6";
+            Database database = new Database();
             bool isWork = true;
             string userInput;
             Console.WriteLine("Press any button to start.");
@@ -20,27 +26,27 @@ namespace ConsoleApp1
             {
                 Console.ReadKey();
                 Console.Clear();
-                Console.WriteLine("1-add new player \n2-delete player \n3-ban player \n4-unban player \n5-Show all player's \n6-Exit");
+                Console.WriteLine($"{AddPlayer}-Add new player.\n{DeletePlayer}-Delete player \n{Ban}-Ban player \n{UnBan}-Unban player \n{ShowPlayers}-Show all player's \n{Exit}-Exit");
                 userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
-                    case "1":
-                        dataBase.AddPlayer();
+                    case AddPlayer:
+                        database.AddPlayer();
                         break;
-                    case "2":
-                        dataBase.DeletePlayer();
+                    case DeletePlayer:
+                        database.DeletePlayer();
                         break;
-                    case "3":
-                        dataBase.BanPlayer();
+                    case Ban:
+                        database.BanPlayer();
                         break;
-                    case "4":
-                        dataBase.UnBanPlayer();
+                    case UnBan:
+                        database.UnBanPlayer();
                         break;
-                    case "5":
-                        dataBase.ShowData();
+                    case ShowPlayers:
+                        database.ShowData();
                         break;
-                    case "6":
+                    case Exit:
                         isWork = false;
                         Console.WriteLine("Have a nice day.");
                         break;
@@ -50,13 +56,13 @@ namespace ConsoleApp1
     }
 
     class Player
-    {        
+    {
         public string NickName { get; private set; }
         public int Level { get; private set; }
         public bool IsBanned { get; private set; }
 
         public Player(string nickName, int level, bool isBanned)
-        {            
+        {
             NickName = nickName;
             Level = level;
             IsBanned = isBanned;
@@ -86,71 +92,39 @@ namespace ConsoleApp1
     class Database
     {
         private Dictionary<int, Player> _players = new Dictionary<int, Player>();
-                
-        public List<int> index = new List<int>();
+
+        private List<int> index = new List<int>();
 
         public string LasyNaming = "Player";
         public int LasyNamingCount = 1;
 
         public void AddPlayer()
         {
-            Console.WriteLine("Enter player index:");
-            bool isNumber = int.TryParse(Console.ReadLine(), out int _indexInBase);
+            Console.WriteLine("Enter player nickname");
+            string nickName = Console.ReadLine();
 
-            if (isNumber == false)
+            if (nickName == "")
             {
-                Console.WriteLine("Incorrect input. Index must contain only numbers. \nExample: 1548");
-                return;
+                nickName = LasyNaming + LasyNamingCount;
+                LasyNamingCount++;
             }
+
+            Console.WriteLine("Enter player level:");
+            int level = ReadInt();
+            Random random = new Random();
+            int _indexInBase = random.Next(1000, 10000);
 
             if (index.Contains(_indexInBase))
             {
-                Console.WriteLine("This index is already in use. \nTry another.");
                 return;
             }
             else
             {
                 index.Add(_indexInBase);
             }
-           
-            Console.WriteLine("Enter player nickname");
-            string nickName = Console.ReadLine();
 
-            if(nickName == "")
-            {
-                nickName = LasyNaming + LasyNamingCount;
-                LasyNamingCount++;
-                
-            }
-            Console.WriteLine("Enter player level:");
-            isNumber = int.TryParse(Console.ReadLine(), out int level);
-
-            if (isNumber == false)
-            {
-                Console.WriteLine("Incorrect input. Level must contain only numbers. \nExample: 10"); 
-                return;
-            }
-
-            Console.WriteLine("Is player banned? \nY-yes. \nN-no.");
-            char input = Convert.ToChar(Console.ReadLine());
-            bool isBanned;
-
-            if (input == 'Y')
-            {
-                isBanned = true;
-            }
-            else if (input == 'N')
-            {
-                isBanned = false;
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input. Try again.");
-                return;
-            }
-
+            bool isBanned = false;
             _players.Add(_indexInBase, new Player(nickName, level, isBanned));
-                       
         }
 
         public void DeletePlayer()
@@ -166,21 +140,21 @@ namespace ConsoleApp1
             else
             {
                 Console.WriteLine("Incorrect input or the player with this number is not in the database");
-            }            
+            }
         }
 
         public void ShowData()
         {
             if (index.Count != 0)
             {
-                
+
                 for (int i = 0; i < index.Count; i++)
                 {
                     int checker = index[i];
                     _players[checker].ShowInfo();
                     Console.WriteLine($"identifier:{index[i]}");
                     Console.WriteLine();
-                }               
+                }
             }
             else
             {
@@ -234,6 +208,28 @@ namespace ConsoleApp1
             {
                 Console.WriteLine("Incorrect input or the player with this number is not in the database");
             }
+        }
+        public int ReadInt()
+        {
+            bool inCorrectInput = true;
+            int input = 0;
+
+            while (inCorrectInput)
+            {
+                bool isNumber = int.TryParse(Console.ReadLine(), out input);
+
+                if (isNumber == false)
+                {
+                    string explanation = "Incorrect input. Level must contain only numbers. \nExample: 10";
+                    Console.WriteLine(explanation);
+                    inCorrectInput = true;
+                }
+                else
+                {
+                    inCorrectInput = false;
+                }                
+            }
+            return input;
         }
     }
 }
