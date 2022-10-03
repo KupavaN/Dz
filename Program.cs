@@ -108,7 +108,7 @@ namespace ConsoleApp1
 
             Console.WriteLine("Enter player level:");
             int level = ReadInt();            
-            int indexInBase =Randomaze();                       
+            int indexInBase =randomise();                       
             bool isBanned = false;
             _players.Add(indexInBase, new Player(nickName, level, isBanned));
         }
@@ -181,7 +181,7 @@ namespace ConsoleApp1
             return input;
         }
 
-        public int Randomaze()
+        public int randomise()
         {
             bool inCorrectIndex = true;
             Random playerIndex = new Random();
