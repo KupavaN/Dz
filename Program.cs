@@ -91,12 +91,9 @@ namespace ConsoleApp1
 
     class Database
     {
-        private Dictionary<int, Player> _players = new Dictionary<int, Player>();
-
-        private List<int> index = new List<int>();
-
-        public string LasyNaming = "Player";
-        public int LasyNamingCount = 1;
+        private Dictionary<int, Player> _players = new Dictionary<int, Player>();        
+        private string _lasyNaming = "Player";
+        private int _lasyNamingCount = 1;
 
         public void AddPlayer()
         {
@@ -105,26 +102,15 @@ namespace ConsoleApp1
 
             if (nickName == "")
             {
-                nickName = LasyNaming + LasyNamingCount;
-                LasyNamingCount++;
+                nickName = _lasyNaming + _lasyNamingCount;
+                _lasyNamingCount++;
             }
 
             Console.WriteLine("Enter player level:");
-            int level = ReadInt();
-            Random random = new Random();
-            int _indexInBase = random.Next(1000, 10000);
-
-            if (index.Contains(_indexInBase))
-            {
-                return;
-            }
-            else
-            {
-                index.Add(_indexInBase);
-            }
-
+            int level = ReadInt();            
+            int indexInBase =Randomaze();                       
             bool isBanned = false;
-            _players.Add(_indexInBase, new Player(nickName, level, isBanned));
+            _players.Add(indexInBase, new Player(nickName, level, isBanned));
         }
 
         public void DeletePlayer()
@@ -132,9 +118,8 @@ namespace ConsoleApp1
             Console.WriteLine("Enter user identifier");
             bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
 
-            if (isNumber == true && _players.ContainsKey(identifier) == true && index.Contains(identifier))
-            {
-                index.Remove(identifier);
+            if (isNumber == true && _players.ContainsKey(identifier))
+            {                
                 _players.Remove(identifier);
             }
             else
@@ -145,14 +130,15 @@ namespace ConsoleApp1
 
         public void ShowData()
         {
-            if (index.Count != 0)
-            {
 
-                for (int i = 0; i < index.Count; i++)
+            if (_players.Count != 0)
+            {
+                
+                foreach (var person in _players)
                 {
-                    int checker = index[i];
-                    _players[checker].ShowInfo();
-                    Console.WriteLine($"identifier:{index[i]}");
+                    int index = person.Key;
+                    _players[index].ShowInfo();
+                    Console.WriteLine($"identifier:{index}");
                     Console.WriteLine();
                 }
             }
@@ -164,51 +150,14 @@ namespace ConsoleApp1
 
         public void BanPlayer()
         {
-            Console.WriteLine("Enter user identifiern");
-            bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
-
-            if (isNumber == true & _players.ContainsKey(identifier) == true)
-            {
-
-                if (_players[identifier].IsBanned == false)
-                {
-                    _players[identifier].Ban();
-                    Console.WriteLine("Player banned");
-                }
-                else
-                {
-                    Console.WriteLine("Player is already banned");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input or the player with this number is not in the database");
-            }
+            BanAndUnBan("Player banned.", "Player is already banned.", "Incorrect input or the player with this number is not in the database.");                          
         }
 
         public void UnBanPlayer()
         {
-            Console.WriteLine("Enter user identifiern");
-            int input = int.Parse(Console.ReadLine());
-
-            if (_players.ContainsKey(input) == true)
-            {
-
-                if (_players[input].IsBanned == true)
-                {
-                    _players[input].UnBan();
-                    Console.WriteLine("Player unbanned.");
-                }
-                else
-                {
-                    Console.WriteLine("Player dont banned.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input or the player with this number is not in the database");
-            }
+            BanAndUnBan("Player unbanned.", "Player dont banned.", "Incorrect input or the player with this number is not in the database.", 1);                                           
         }
+
         public int ReadInt()
         {
             bool inCorrectInput = true;
@@ -230,6 +179,77 @@ namespace ConsoleApp1
                 }                
             }
             return input;
+        }
+
+        public int Randomaze()
+        {
+            bool inCorrectIndex = true;
+            Random playerIndex = new Random();
+            int minimalPlayerIndex = 1000;
+            int maximalPlayerIndex = 10000;
+            int indexInBase = playerIndex.Next(minimalPlayerIndex, maximalPlayerIndex);
+
+            while (inCorrectIndex)
+            {
+
+                if (_players.ContainsKey(indexInBase))
+                {
+                    indexInBase = playerIndex.Next(minimalPlayerIndex, maximalPlayerIndex);
+                }
+                else
+                {                    
+                    inCorrectIndex = false;
+                }
+            }
+            return indexInBase;
+        }
+
+        public void BanAndUnBan(string text1, string text2, string text3)
+        {
+            Console.WriteLine("Enter user identifier");
+            bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
+
+            if (isNumber == true & _players.ContainsKey(identifier) == true)
+            {
+
+                if (_players[identifier].IsBanned == false)
+                {
+                    _players[identifier].Ban();
+                    Console.WriteLine(text1);
+                }
+                else
+                {
+                    Console.WriteLine(text2);
+                }
+            }
+            else
+            {
+                Console.WriteLine(text3);
+            }
+        }
+
+        public void BanAndUnBan(string text1, string text2, string text3, int unBanner)
+        {
+            Console.WriteLine("Enter user identifier");
+            bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
+
+            if (isNumber == true & _players.ContainsKey(identifier) == true)
+            {
+
+                if (_players[identifier].IsBanned == true)
+                {
+                    _players[identifier].UnBan();
+                    Console.WriteLine(text1);
+                }
+                else
+                {
+                    Console.WriteLine(text2);
+                }
+            }
+            else
+            {
+                Console.WriteLine(text3);
+            }
         }
     }
 }
