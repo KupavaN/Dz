@@ -115,17 +115,7 @@ namespace ConsoleApp1
 
         public void DeletePlayer()
         {
-            Console.WriteLine("Enter user identifier");
-            bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
-
-            if (isNumber == true && _players.ContainsKey(identifier))
-            {                
-                _players.Remove(identifier);
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input or the player with this number is not in the database");
-            }
+            DeleteUser();
         }
 
         public void ShowData()
@@ -249,6 +239,21 @@ namespace ConsoleApp1
             else
             {
                 Console.WriteLine("Incorrect input or the player with this number is not in the database.");
+            }
+        }
+
+        public void DeleteUser()
+        {
+            Console.WriteLine("Enter user identifier");
+            bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
+
+            if (isNumber == true && _players.ContainsKey(identifier))
+            {
+                _players.Remove(identifier);
+            }
+            else
+            {
+                Console.WriteLine("Incorrect input or the player with this number is not in the database");
             }
         }
     }
