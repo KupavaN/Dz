@@ -4,51 +4,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace ConsoleApp1
+namespace DZ2
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            const string AddPlayer = "1";
-            const string DeletePlayer = "2";
-            const string Ban = "3";
-            const string UnBan = "4";
-            const string ShowPlayers = "5";
-            const string Exit = "6";
-            Database database = new Database();
-            bool isWork = true;
-            string userInput;
-            Console.WriteLine("Press any button to start.");
+            const string TakeACard = "1";
+            const string ShowHand = "2";
+            const string Enougth = "3";
+            const string Exit = "4";
+            bool isWork = true;            
+            PackOfCards packOfCards = new PackOfCards();
+            Player playerCards = new Player();
+            string userInput;            
+            int playerScore = 0;
+
 
             while (isWork)
             {
                 Console.ReadKey();
                 Console.Clear();
-                Console.WriteLine($"{AddPlayer}-Add new player.\n{DeletePlayer}-Delete player \n{Ban}-Ban player \n{UnBan}-Unban player \n{ShowPlayers}-Show all player's \n{Exit}-Exit");
+                Console.WriteLine($"{TakeACard}-Take a card. \n{ShowHand}-Show card's in hand. \n{Enougth}-Enougth card's. \n{Exit}-Exit.");                
                 userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
-                    case AddPlayer:
-                        database.AddPlayer();
+                    case TakeACard:
+                        playerCards.TakeCard(packOfCards);
                         break;
-                    case DeletePlayer:
-                        database.DeletePlayer();
+                        case ShowHand:
+                        Console.WriteLine("\nYour cards:");
+                        playerCards.ShowHand();
                         break;
-                    case Ban:
-                        database.BanPlayer();
-                        break;
-                    case UnBan:
-                        database.UnBanPlayer();
-                        break;
-                    case ShowPlayers:
-                        database.ShowData();
+                    case Enougth:                        
+                        Console.WriteLine("\nYour score:");
+                        playerScore = playerCards.ShowScore();
+                        Console.WriteLine(playerScore);
+                        Console.WriteLine("\nYour cards:");
+                        playerCards.ShowHand();
+                        isWork = false;
                         break;
                     case Exit:
                         isWork = false;
-                        Console.WriteLine("Have a nice day.");
                         break;
                 }
             }
@@ -57,206 +55,131 @@ namespace ConsoleApp1
 
     class Player
     {
-        public string NickName { get; private set; }
-        public int Level { get; private set; }
-        public bool IsBanned { get; private set; }
+        private List<Card> _cardsInHand = new List<Card>();
 
-        public Player(string nickName, int level, bool isBanned)
+        public void TakeCard(PackOfCards packOfCards)
         {
-            NickName = nickName;
-            Level = level;
-            IsBanned = isBanned;
+
+            if (packOfCards.TryGetCard(out Card card))
+            {
+                _cardsInHand.Add(card);
+                Console.WriteLine("You take 1 card.");
+            }
+            else
+            {
+                Console.WriteLine("No cards in pack.");
+            }
+        }
+
+        public void ShowHand()
+        {
+
+            for (int i = 0; i < _cardsInHand.Count; i++)
+            {
+                _cardsInHand[i].ShowInfo();
+                Console.WriteLine();
+            }
+        }
+
+        public int ShowScore()
+        {
+            int score = 0;
+
+            for (int i = 0; i < _cardsInHand.Count; i++)
+            {
+                score += _cardsInHand[i].CardValue;
+            }
+
+            return score;
+        }
+    }
+   
+    class Card
+    {
+        public string CardName { get; private set; }
+        public string CardSuit { get; private set; }
+        public int CardValue { get; private set; }
+
+        public Card(string cardName, string cardSuit, int cardValue)
+        {
+            CardName = cardName;
+            CardSuit = cardSuit;
+            CardValue = cardValue;
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"Player name -{NickName} \nPlayer level - {Level} ");
-
-            if (IsBanned == true)
-            {
-                Console.WriteLine("Player is banned");
-            }
-        }
-
-        public void Ban()
-        {
-            IsBanned = true;
-        }
-
-        public void UnBan()
-        {
-            IsBanned = false;
+            Console.WriteLine($"CardName - {CardName} \nCardSuit - {CardSuit} \nCardValue - {CardValue}");
         }
     }
 
-    class Database
+    class PackOfCards
     {
-        private Dictionary<int, Player> _players = new Dictionary<int, Player>();        
-        private string _lasyNaming = "Player";
-        private int _lasyNamingCount = 1;
+        private List<Card> _cards = new List<Card>();
+        private int _minimalNumberCard = 0;
+        private int _maximumNumberCard = 36;
 
-        public void AddPlayer()
+        public PackOfCards()
         {
-            Console.WriteLine("Enter player nickname");
-            string nickName = Console.ReadLine();
-
-            if (nickName == "")
-            {
-                nickName = _lasyNaming + _lasyNamingCount;
-                _lasyNamingCount++;
-            }
-
-            Console.WriteLine("Enter player level:");
-            int level = ReadInt();            
-            int indexInBase =CreatePlayerIndex();                       
-            bool isBanned = false;
-            _players.Add(indexInBase, new Player(nickName, level, isBanned));
+            _cards.Add(new Card("Ace", "Heart", 11));
+            _cards.Add(new Card("Ace", "Diamond", 11));
+            _cards.Add(new Card("Ace", "Club", 11));
+            _cards.Add(new Card("Ace", "Spade", 11));
+            _cards.Add(new Card("Six", "Heart", 6));
+            _cards.Add(new Card("Six", "Diamond", 6));
+            _cards.Add(new Card("Six", "Club", 6));
+            _cards.Add(new Card("Six", "Spade", 6));
+            _cards.Add(new Card("Seven", "Heart", 7));
+            _cards.Add(new Card("Seven", "Diamond", 7));
+            _cards.Add(new Card("Seven", "Club", 7));
+            _cards.Add(new Card("Seven", "Spade", 7));
+            _cards.Add(new Card("Eight", "Heart", 8));
+            _cards.Add(new Card("Eight", "Diamond", 8));
+            _cards.Add(new Card("Eight", "Club", 8));
+            _cards.Add(new Card("Eight", "Spade", 8));
+            _cards.Add(new Card("Nine", "Heart", 9));
+            _cards.Add(new Card("Nine", "Diamond", 9));
+            _cards.Add(new Card("Nine", "Club", 9));
+            _cards.Add(new Card("Nine", "Spade", 9));
+            _cards.Add(new Card("Ten", "Heart", 10));
+            _cards.Add(new Card("Ten", "Diamond", 10));
+            _cards.Add(new Card("Ten", "Club", 10));
+            _cards.Add(new Card("Ten", "Spade", 10));
+            _cards.Add(new Card("Jack", "Heart", 2));
+            _cards.Add(new Card("Jack", "Diamond", 2));
+            _cards.Add(new Card("Jack", "Club", 2));
+            _cards.Add(new Card("Jack", "Spade", 2));
+            _cards.Add(new Card("Queen", "Heart", 3));
+            _cards.Add(new Card("Queen", "Diamond", 3));
+            _cards.Add(new Card("Queen", "Club", 3));
+            _cards.Add(new Card("Queen", "Spade", 3));
+            _cards.Add(new Card("King", "Heart", 4));
+            _cards.Add(new Card("King", "Diamond", 4));
+            _cards.Add(new Card("King", "Club", 4));
+            _cards.Add(new Card("King", "Spade", 4));
         }
 
-        public void DeletePlayer()
+        private int GetNumberCard()
         {
-            DeleteUser();
-        }
-
-        public void ShowData()
+            Random randomCard = new Random();
+            int numberCard = randomCard.Next(_minimalNumberCard, _maximumNumberCard);
+            _maximumNumberCard--;
+            return numberCard;
+        }       
+       
+        public bool TryGetCard(out Card card)
         {
-
-            if (_players.Count != 0)
+            if (_cards.Count > 0)
             {
-                
-                foreach (var person in _players)
-                {
-                    int index = person.Key;
-                    _players[index].ShowInfo();
-                    Console.WriteLine($"identifier:{index}");
-                    Console.WriteLine();
-                }
+                card = _cards[GetNumberCard()];
+                _cards.Remove(card);
+                return true;
             }
             else
             {
-                Console.WriteLine("There is no players in database");
+                card = null;
+                return false;
             }
-        }
-
-        public void BanPlayer()
-        {
-            BanUser();                          
-        }
-
-        public void UnBanPlayer()
-        {
-            UnbanUser();                                           
-        }
-
-        public int ReadInt()
-        {
-            bool inCorrectInput = true;
-            int input = 0;
-
-            while (inCorrectInput)
-            {
-                bool isNumber = int.TryParse(Console.ReadLine(), out input);
-
-                if (isNumber == false)
-                {
-                    string explanation = "Incorrect input. Level must contain only numbers. \nExample: 10";
-                    Console.WriteLine(explanation);
-                    inCorrectInput = true;
-                }
-                else
-                {
-                    inCorrectInput = false;
-                }                
-            }
-            return input;
-        }
-
-        public int CreatePlayerIndex()
-        {
-            bool inCorrectIndex = true;
-            Random playerIndex = new Random();
-            int minimalPlayerIndex = 1000;
-            int maximalPlayerIndex = 10000;
-            int indexInBase = playerIndex.Next(minimalPlayerIndex, maximalPlayerIndex);
-
-            while (inCorrectIndex)
-            {
-
-                if (_players.ContainsKey(indexInBase))
-                {
-                    indexInBase = playerIndex.Next(minimalPlayerIndex, maximalPlayerIndex);
-                }
-                else
-                {                    
-                    inCorrectIndex = false;
-                }
-            }
-            return indexInBase;
-        }
-
-        public void BanUser()
-        {
-            Console.WriteLine("Enter user identifier");
-            bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
-
-            if (isNumber == true & _players.ContainsKey(identifier) == true)
-            {
-                
-                if (_players[identifier].IsBanned == false)
-                {
-                    _players[identifier].Ban();
-                    Console.WriteLine("Player banned.");
-                }
-                else
-                {
-                    Console.WriteLine("Player is already banned.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input or the player with this number is not in the database.");
-            }
-        }
-
-        public void UnbanUser()
-        {
-            Console.WriteLine("Enter user identifier");
-            bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
-
-            if (isNumber == true & _players.ContainsKey(identifier) == true)
-            {
-
-                if (_players[identifier].IsBanned == true)
-                {
-                    _players[identifier].UnBan();
-                    Console.WriteLine("Player unbanned.");
-                }
-                else
-                {
-                    Console.WriteLine("Player is already unbanned.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input or the player with this number is not in the database.");
-            }
-        }
-
-        public void DeleteUser()
-        {
-            Console.WriteLine("Enter user identifier");
-            bool isNumber = int.TryParse(Console.ReadLine(), out int identifier);
-
-            if (isNumber == true && _players.ContainsKey(identifier))
-            {
-                _players.Remove(identifier);
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input or the player with this number is not in the database");
-            }
-        }
+        }        
     }
 }
-
-
