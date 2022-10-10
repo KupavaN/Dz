@@ -17,8 +17,7 @@ namespace DZ2
             bool isWork = true;            
             PackOfCards packOfCards = new PackOfCards();
             Player playerCards = new Player();
-            string userInput;            
-            int playerScore = 0;
+            string userInput;                        
 
 
             while (isWork)
@@ -33,15 +32,11 @@ namespace DZ2
                     case TakeACard:
                         playerCards.TakeCard(packOfCards);
                         break;
-                        case ShowHand:
-                        Console.WriteLine("\nYour cards:");
+                        case ShowHand:                        
                         playerCards.ShowHand();
                         break;
-                    case Enougth:                        
-                        Console.WriteLine("\nYour score:");
-                        playerScore = playerCards.ShowScore();
-                        Console.WriteLine(playerScore);
-                        Console.WriteLine("\nYour cards:");
+                    case Enougth:                                                
+                        playerCards.ShowScore();                                                
                         playerCards.ShowHand();
                         isWork = false;
                         break;
@@ -73,6 +68,7 @@ namespace DZ2
 
         public void ShowHand()
         {
+            Console.WriteLine("\nYour cards:");
 
             for (int i = 0; i < _cardsInHand.Count; i++)
             {
@@ -82,14 +78,14 @@ namespace DZ2
         }
 
         public int ShowScore()
-        {
+        {            
             int score = 0;
 
             for (int i = 0; i < _cardsInHand.Count; i++)
             {
                 score += _cardsInHand[i].CardValue;
             }
-
+            Console.WriteLine($"\nYour score:{score}");
             return score;
         }
     }
