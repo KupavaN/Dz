@@ -12,50 +12,45 @@ namespace DZ2
         {
             const string TakeACard = "1";
             const string ShowHand = "2";
-            const string Enougth = "3";
-            const string Exit = "4";
-            bool isWork = true;            
-            PackOfCards packOfCards = new PackOfCards();
-            Player playerCards = new Player();
-            string userInput;                        
-
+            const string Enougth = "3";            
+            bool isWork = true;
+            Pack pack = new Pack();
+            Player player = new Player();
+            string userInput;
 
             while (isWork)
             {
                 Console.ReadKey();
                 Console.Clear();
-                Console.WriteLine($"{TakeACard}-Take a card. \n{ShowHand}-Show card's in hand. \n{Enougth}-Enougth card's. \n{Exit}-Exit.");                
+                Console.WriteLine($"{TakeACard}-Take a card. \n{ShowHand}-Show card's in hand. \n{Enougth}-Enougth card's and exit.");
                 userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
                     case TakeACard:
-                        playerCards.TakeCard(packOfCards);
+                        player.TakeCard(pack);
                         break;
-                        case ShowHand:                        
-                        playerCards.ShowHand();
+                    case ShowHand:
+                        player.ShowHand();                       
                         break;
-                    case Enougth:                                                
-                        playerCards.ShowScore();                                                
-                        playerCards.ShowHand();
+                    case Enougth:
                         isWork = false;
-                        break;
-                    case Exit:
-                        isWork = false;
-                        break;
+                        break;                    
                 }
             }
+            
+            player.ShowScore();
+            player.ShowHand();
         }
     }
 
     class Player
     {
         private List<Card> _cardsInHand = new List<Card>();
-
-        public void TakeCard(PackOfCards packOfCards)
+        public void TakeCard(Pack pack)
         {
 
-            if (packOfCards.TryGetCard(out Card card))
+            if (pack.TryGetCard(out Card card))
             {
                 _cardsInHand.Add(card);
                 Console.WriteLine("You take 1 card.");
@@ -78,96 +73,103 @@ namespace DZ2
         }
 
         public int ShowScore()
-        {            
+        {
             int score = 0;
 
             for (int i = 0; i < _cardsInHand.Count; i++)
             {
-                score += _cardsInHand[i].CardValue;
+                score += _cardsInHand[i].Value;
             }
+
             Console.WriteLine($"\nYour score:{score}");
             return score;
         }
     }
-   
+
     class Card
     {
-        public string CardName { get; private set; }
-        public string CardSuit { get; private set; }
-        public int CardValue { get; private set; }
+        public string Name { get; private set; }
+        public string Suit { get; private set; }
+        public int Value { get; private set; }
 
-        public Card(string cardName, string cardSuit, int cardValue)
+        public Card(string name, string suit, int value)
         {
-            CardName = cardName;
-            CardSuit = cardSuit;
-            CardValue = cardValue;
+            Name = name;
+            Suit = suit;
+            Value = value;
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"CardName - {CardName} \nCardSuit - {CardSuit} \nCardValue - {CardValue}");
+            Console.WriteLine($"CardName - {Name} \nCardSuit - {Suit} \nCardValue - {Value}");
         }
     }
 
-    class PackOfCards
+    class Pack
     {
         private List<Card> _cards = new List<Card>();
         private int _minimalNumberCard = 0;
         private int _maximumNumberCard = 36;
 
-        public PackOfCards()
+        public Pack()
         {
-            _cards.Add(new Card("Ace", "Heart", 11));
-            _cards.Add(new Card("Ace", "Diamond", 11));
-            _cards.Add(new Card("Ace", "Club", 11));
-            _cards.Add(new Card("Ace", "Spade", 11));
-            _cards.Add(new Card("Six", "Heart", 6));
-            _cards.Add(new Card("Six", "Diamond", 6));
-            _cards.Add(new Card("Six", "Club", 6));
-            _cards.Add(new Card("Six", "Spade", 6));
-            _cards.Add(new Card("Seven", "Heart", 7));
-            _cards.Add(new Card("Seven", "Diamond", 7));
-            _cards.Add(new Card("Seven", "Club", 7));
-            _cards.Add(new Card("Seven", "Spade", 7));
-            _cards.Add(new Card("Eight", "Heart", 8));
-            _cards.Add(new Card("Eight", "Diamond", 8));
-            _cards.Add(new Card("Eight", "Club", 8));
-            _cards.Add(new Card("Eight", "Spade", 8));
-            _cards.Add(new Card("Nine", "Heart", 9));
-            _cards.Add(new Card("Nine", "Diamond", 9));
-            _cards.Add(new Card("Nine", "Club", 9));
-            _cards.Add(new Card("Nine", "Spade", 9));
-            _cards.Add(new Card("Ten", "Heart", 10));
-            _cards.Add(new Card("Ten", "Diamond", 10));
-            _cards.Add(new Card("Ten", "Club", 10));
-            _cards.Add(new Card("Ten", "Spade", 10));
-            _cards.Add(new Card("Jack", "Heart", 2));
-            _cards.Add(new Card("Jack", "Diamond", 2));
-            _cards.Add(new Card("Jack", "Club", 2));
-            _cards.Add(new Card("Jack", "Spade", 2));
-            _cards.Add(new Card("Queen", "Heart", 3));
-            _cards.Add(new Card("Queen", "Diamond", 3));
-            _cards.Add(new Card("Queen", "Club", 3));
-            _cards.Add(new Card("Queen", "Spade", 3));
-            _cards.Add(new Card("King", "Heart", 4));
-            _cards.Add(new Card("King", "Diamond", 4));
-            _cards.Add(new Card("King", "Club", 4));
-            _cards.Add(new Card("King", "Spade", 4));
+            AddToPack();
+        }
+       
+        enum name
+        {
+            Ace,
+            Six,
+            Seven,
+            Eigth,
+            Nine,
+            Ten,
+            Jack,
+            Queen,
+            King
         }
 
-        private int GetNumberCard()
+        enum suit
         {
-            Random randomCard = new Random();
-            int numberCard = randomCard.Next(_minimalNumberCard, _maximumNumberCard);
+            Heart,
+            Diamond,
+            Club,
+            Spade
+        }
+               
+        private void AddToPack()
+        {
+            List<int> value = new List<int> { 11, 6, 7, 8, 9, 10, 2, 3, 4 }; 
+            int cardsNameCount = 9;
+            int cardsSuitCount = 4;
+            for (int i = 0; i < cardsNameCount; i++)
+            {
+                int card = i;
+                for (int k = 0; k < cardsSuitCount; k++)
+                {
+                    string a=Convert.ToString((name)i);
+                    string b=Convert.ToString((suit)k);
+                    int c = value[i];
+                    _cards.Add(new Card(a, b, c));
+                }
+
+            }
+
+        }
+        private int GetNumber()
+        {
+            Random randomNumber = new Random();
+            int numberCard = randomNumber.Next(_minimalNumberCard, _maximumNumberCard);
             _maximumNumberCard--;
             return numberCard;
-        }       
-       
+        }
+
         public bool TryGetCard(out Card card)
         {
+
             if (_cards.Count > 0)
             {
-                card = _cards[GetNumberCard()];
+                card = _cards[GetNumber()];
                 _cards.Remove(card);
                 return true;
             }
