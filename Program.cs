@@ -10,9 +10,9 @@ namespace DZ2
     {
         static void Main(string[] args)
         {
-            const string TakeACard = "1";
-            const string ShowHand = "2";
-            const string Enougth = "3";            
+            const string CommandTakeACard = "1";
+            const string CommandShowHand = "2";
+            const string CommandEnougth = "3";
             bool isWork = true;
             Pack pack = new Pack();
             Player player = new Player();
@@ -22,23 +22,23 @@ namespace DZ2
             {
                 Console.ReadKey();
                 Console.Clear();
-                Console.WriteLine($"{TakeACard}-Take a card. \n{ShowHand}-Show card's in hand. \n{Enougth}-Enougth card's and exit.");
+                Console.WriteLine($"{CommandTakeACard}-Take a card. \n{CommandShowHand}-Show card's in hand. \n{CommandEnougth}-Enougth card's and exit.");
                 userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
-                    case TakeACard:
+                    case CommandTakeACard:
                         player.TakeCard(pack);
                         break;
-                    case ShowHand:
-                        player.ShowHand();                       
+                    case CommandShowHand:
+                        player.ShowHand();
                         break;
-                    case Enougth:
+                    case CommandEnougth:
                         isWork = false;
-                        break;                    
+                        break;
                 }
             }
-            
+
             player.ShowScore();
             player.ShowHand();
         }
@@ -47,6 +47,7 @@ namespace DZ2
     class Player
     {
         private List<Card> _cardsInHand = new List<Card>();
+
         public void TakeCard(Pack pack)
         {
 
@@ -109,59 +110,11 @@ namespace DZ2
     {
         private List<Card> _cards = new List<Card>();
         private int _minimalNumberCard = 0;
-        private int _maximumNumberCard = 36;
+        private int _cardsLeftInPack = 36;
 
         public Pack()
         {
             AddToPack();
-        }
-       
-        enum name
-        {
-            Ace,
-            Six,
-            Seven,
-            Eigth,
-            Nine,
-            Ten,
-            Jack,
-            Queen,
-            King
-        }
-
-        enum suit
-        {
-            Heart,
-            Diamond,
-            Club,
-            Spade
-        }
-               
-        private void AddToPack()
-        {
-            List<int> value = new List<int> { 11, 6, 7, 8, 9, 10, 2, 3, 4 }; 
-            int cardsNameCount = 9;
-            int cardsSuitCount = 4;
-            for (int i = 0; i < cardsNameCount; i++)
-            {
-                int card = i;
-                for (int k = 0; k < cardsSuitCount; k++)
-                {
-                    string a=Convert.ToString((name)i);
-                    string b=Convert.ToString((suit)k);
-                    int c = value[i];
-                    _cards.Add(new Card(a, b, c));
-                }
-
-            }
-
-        }
-        private int GetNumber()
-        {
-            Random randomNumber = new Random();
-            int numberCard = randomNumber.Next(_minimalNumberCard, _maximumNumberCard);
-            _maximumNumberCard--;
-            return numberCard;
         }
 
         public bool TryGetCard(out Card card)
@@ -169,7 +122,7 @@ namespace DZ2
 
             if (_cards.Count > 0)
             {
-                card = _cards[GetNumber()];
+                card = _cards[GetCardInPackNumber()];
                 _cards.Remove(card);
                 return true;
             }
@@ -178,6 +131,50 @@ namespace DZ2
                 card = null;
                 return false;
             }
+        }
+
+        private int GetCardInPackNumber()
+        {
+            Random random = new Random();
+            int numberCard = random.Next(_minimalNumberCard, _cardsLeftInPack);
+            _cardsLeftInPack--;
+            return numberCard;
         }        
+
+        enum Suit
+        {
+            Heart,
+            Diamond,
+            Club,
+            Spade
+        }
+
+        private void AddToPack()
+        {            
+            Dictionary<string, int> dictionary = new Dictionary<string, int>()
+            {
+             { "Ace", 11},
+             { "Six", 6},
+             { "Seven", 7},
+             { "Eigth", 8},
+             { "Nine", 9},
+             { "Ten", 10},
+             { "Jack", 2},
+             { "Queen", 3},
+             { "King", 4}
+            };            
+            int suitsInPack = 4;            
+
+            for (int i = 0; i < suitsInPack; i++)
+            {
+                string suit = Convert.ToString((Suit)i);
+                foreach (var card in dictionary)
+                {
+                    string name = card.Key;
+                    int value = card.Value;
+                    _cards.Add(new Card(name, suit, value));
+                }
+            }
+        }
     }
 }
