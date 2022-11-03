@@ -73,7 +73,7 @@ namespace DZ2
             }
         }
 
-        public int ShowScore()
+        public void ShowScore()
         {
             int score = 0;
 
@@ -83,7 +83,6 @@ namespace DZ2
             }
 
             Console.WriteLine($"\nYour score:{score}");
-            return score;
         }
     }
 
@@ -139,7 +138,7 @@ namespace DZ2
             int numberCard = random.Next(_minimalNumberCard, _cardsLeftInPack);
             _cardsLeftInPack--;
             return numberCard;
-        }        
+        }
 
         enum Suit
         {
@@ -150,7 +149,7 @@ namespace DZ2
         }
 
         private void AddToPack()
-        {            
+        {
             Dictionary<string, int> dictionary = new Dictionary<string, int>()
             {
              { "Ace", 11},
@@ -162,17 +161,14 @@ namespace DZ2
              { "Jack", 2},
              { "Queen", 3},
              { "King", 4}
-            };            
-            int suitsInPack = 4;            
+            };
 
-            for (int i = 0; i < suitsInPack; i++)
+            for (int i = 0; i < Convert.ToInt32(Suit.Spade + 1); i++)
             {
                 string suit = Convert.ToString((Suit)i);
                 foreach (var card in dictionary)
                 {
-                    string name = card.Key;
-                    int value = card.Value;
-                    _cards.Add(new Card(name, suit, value));
+                    _cards.Add(new Card(card.Key, suit, card.Value));
                 }
             }
         }
