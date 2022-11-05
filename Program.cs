@@ -4,173 +4,266 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DZ2
+
+namespace ConsoleApp1
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            const string CommandTakeACard = "1";
-            const string CommandShowHand = "2";
-            const string CommandEnougth = "3";
-            bool isWork = true;
-            Pack pack = new Pack();
-            Player player = new Player();
-            string userInput;
+            const string NewBook = "1";
+            const string RemoveBook = "2";
+            const string ShowAllBooks = "3";
+            const string ShowBooksByName = "4";
+            const string ShowBooksByAuthor = "5";
+            const string ShowBooksByYear = "6";
+            const string Exit = "7";
+            bool Iswork = true;
+            Library books = new Library();
 
-            while (isWork)
+            while (Iswork)
             {
-                Console.ReadKey();
                 Console.Clear();
-                Console.WriteLine($"{CommandTakeACard}-Take a card. \n{CommandShowHand}-Show card's in hand. \n{CommandEnougth}-Enougth card's and exit.");
-                userInput = Console.ReadLine();
+                Console.WriteLine($"Press: {NewBook} to add new book to the library.\n" +
+                    $"Press: {RemoveBook} to remove book from the library.\n" +
+                    $"Press: {ShowAllBooks} to show all book in the library.\n" +
+                    $"Press: {ShowBooksByName} to search books by name and show.\n" +
+                    $"Press: {ShowBooksByAuthor} to search books by author and show.\n" +
+                    $"Press: {ShowBooksByYear} to search books by year and show.\n" +
+                    $"Press: {Exit} to close the programm.\n");
+                string userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
-                    case CommandTakeACard:
-                        player.TakeCard(pack);
+                    case "1":
+                        books.AddBook();
                         break;
-                    case CommandShowHand:
-                        player.ShowHand();
+                    case "2":
+                        books.DeleteBook();
                         break;
-                    case CommandEnougth:
-                        isWork = false;
+                    case "3":
+                        books.ShowBooks();
+                        break;
+                    case "4":
+                        books.SearchByName();
+                        break;
+                    case "5":
+                        books.SearchByAuthor();
+                        break;
+                    case "6":
+                        books.SearchByYear();
+                        break;
+                    case "7":
+                        Iswork = false;
+                        break;
+                    default:
+                        Console.WriteLine("Incorrect input\n");
                         break;
                 }
             }
 
-            player.ShowScore();
-            player.ShowHand();
+            Console.WriteLine("Have a nice day.");
         }
     }
-
-    class Player
-    {
-        private List<Card> _cardsInHand = new List<Card>();
-
-        public void TakeCard(Pack pack)
-        {
-
-            if (pack.TryGetCard(out Card card))
-            {
-                _cardsInHand.Add(card);
-                Console.WriteLine("You take 1 card.");
-            }
-            else
-            {
-                Console.WriteLine("No cards in pack.");
-            }
-        }
-
-        public void ShowHand()
-        {
-            Console.WriteLine("\nYour cards:");
-
-            for (int i = 0; i < _cardsInHand.Count; i++)
-            {
-                _cardsInHand[i].ShowInfo();
-                Console.WriteLine();
-            }
-        }
-
-        public void ShowScore()
-        {
-            int score = 0;
-
-            for (int i = 0; i < _cardsInHand.Count; i++)
-            {
-                score += _cardsInHand[i].Value;
-            }
-
-            Console.WriteLine($"\nYour score:{score}");
-        }
-    }
-
-    class Card
+    class Book
     {
         public string Name { get; private set; }
-        public string Suit { get; private set; }
-        public int Value { get; private set; }
+        public string Author { get; private set; }
+        public int Year { get; private set; }
 
-        public Card(string name, string suit, int value)
+        public Book(string name, string author, int year)
         {
             Name = name;
-            Suit = suit;
-            Value = value;
+            Author = author;
+            Year = year;
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"CardName - {Name} \nCardSuit - {Suit} \nCardValue - {Value}");
+            Console.WriteLine($"Book - {Name} \nAuthor - {Author} \nWas written in - {Year}");
         }
     }
 
-    class Pack
+    class Library
     {
-        private List<Card> _cards = new List<Card>();
-        private int _minimalNumberCard = 0;
-        private int _cardsLeftInPack = 36;
+        private List<Book> _books = new List<Book>();
 
-        public Pack()
+        public void AddBook()
         {
-            AddToPack();
+            Console.WriteLine("Enter the book name:");
+            string bookName = Console.ReadLine();
+            Console.WriteLine("Enter the author:");
+            string autor = Console.ReadLine();
+            Console.WriteLine("Enter the year when the book was written:");
+            int year = 0;
+            bool result = int.TryParse(Console.ReadLine(), out year);
+
+            if (result == true && bookName != "" && autor != "")
+            {
+                _books.Add(new Book(bookName, autor, year));
+                Console.WriteLine("Book added.");
+            }
+            else 
+            {
+                Console.WriteLine("Incorrect name,author or year.");
+            }
+
+            Console.Read();
         }
 
-        public bool TryGetCard(out Card card)
+        public void ShowBooks()
         {
 
-            if (_cards.Count > 0)
+            if (_books.Count != 0)
             {
-                card = _cards[GetCardInPackNumber()];
-                _cards.Remove(card);
-                return true;
+
+                for (int i = 0; i < _books.Count; i++)
+                {
+                    _books[i].ShowInfo();
+                    Console.WriteLine();
+                }
             }
             else
             {
-                card = null;
-                return false;
+                Console.WriteLine("There is no books in the library");
             }
+
+            Console.Read();
         }
 
-        private int GetCardInPackNumber()
+        public void DeleteBook()
         {
-            Random random = new Random();
-            int numberCard = random.Next(_minimalNumberCard, _cardsLeftInPack);
-            _cardsLeftInPack--;
-            return numberCard;
-        }
 
-        enum Suit
-        {
-            Heart,
-            Diamond,
-            Club,
-            Spade
-        }
-
-        private void AddToPack()
-        {
-            Dictionary<string, int> dictionary = new Dictionary<string, int>()
+            if (_books.Count != 0)
             {
-             { "Ace", 11},
-             { "Six", 6},
-             { "Seven", 7},
-             { "Eigth", 8},
-             { "Nine", 9},
-             { "Ten", 10},
-             { "Jack", 2},
-             { "Queen", 3},
-             { "King", 4}
-            };
+                Console.WriteLine("Enter book name:");
+                string bookName = Console.ReadLine();
+                Console.WriteLine("Enter book author:");
+                string bookAuthor = Console.ReadLine();
+                int bookFound = 0;
 
-            for (int i = 0; i < Convert.ToInt32(Suit.Spade + 1); i++)
-            {
-                string suit = Convert.ToString((Suit)i);
-                foreach (var card in dictionary)
+                for (int i = 0; i < _books.Count; i++)
                 {
-                    _cards.Add(new Card(card.Key, suit, card.Value));
+
+                    if (_books[i].Name == bookName && _books[i].Author == bookAuthor)
+                    {
+                        _books.RemoveAt(i);
+                        bookFound++;
+                        Console.WriteLine("Complitly delete.");
+                        break;                       
+                    }
+                }
+
+                if (bookFound == 0)
+                {
+                    Console.WriteLine("Incorrect book name or author.");
                 }
             }
+            else
+            {
+                Console.WriteLine("There is no books in the library");
+            }
+
+            Console.Read();
+        }
+
+        public void SearchByName()
+        {
+            Console.WriteLine("Enter book name:");
+            string bookName = Console.ReadLine();
+            int nameChecker = 0;
+
+            if (_books.Count != 0)
+            {
+                for (int i = 0; i < _books.Count; i++)
+                {
+
+                    if (_books[i].Name == bookName)
+                    {
+                        _books[i].ShowInfo();
+                        Console.WriteLine();
+                        nameChecker++;
+                    }
+                }
+
+                if (nameChecker == 0)
+                {
+
+                    Console.WriteLine("There is no books with this name.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("There is no books in the library");
+            }
+
+            Console.Read();
+        }
+        public void SearchByAuthor()
+        {
+            Console.WriteLine("Enter book author:");
+            string bookAuthor = Console.ReadLine();
+            int authorChecker = 0;
+
+            if (_books.Count != 0)
+            {
+                for (int i = 0; i < _books.Count; i++)
+                {
+
+                    if (_books[i].Author == bookAuthor)
+                    {
+                        _books[i].ShowInfo();
+                        Console.WriteLine();
+                        authorChecker++;
+                    }
+                }
+
+                if (authorChecker == 0)
+                {
+
+                    Console.WriteLine("There is no books written by this author.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("There is no books in the library");
+            }
+
+            Console.Read();
+        }
+
+        public void SearchByYear()
+        {
+            Console.WriteLine("Enter year when book was written:");
+            int year = Convert.ToInt32(Console.ReadLine());
+            int yearChecker = 0;
+
+            if (_books.Count != 0)
+            {
+                for (int i = 0; i < _books.Count; i++)
+                {
+
+                    if (_books[i].Year == year)
+                    {
+                        _books[i].ShowInfo();
+                        Console.WriteLine();
+                        yearChecker++;
+                    }
+                }
+
+                if (yearChecker == 0)
+                {
+                    Console.WriteLine("No book written in this year.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("There is no books in the library");
+            }
+
+            Console.Read();
         }
     }
 }
+
+
