@@ -103,7 +103,7 @@ namespace ConsoleApp1
                 _books.Add(new Book(bookName, autor, year));
                 Console.WriteLine("Book added.");
             }
-            else 
+            else
             {
                 Console.WriteLine("Incorrect name,author or year.");
             }
@@ -113,10 +113,8 @@ namespace ConsoleApp1
 
         public void ShowBooks()
         {
-
             if (_books.Count != 0)
             {
-
                 for (int i = 0; i < _books.Count; i++)
                 {
                     _books[i].ShowInfo();
@@ -133,7 +131,6 @@ namespace ConsoleApp1
 
         public void DeleteBook()
         {
-
             if (_books.Count != 0)
             {
                 Console.WriteLine("Enter book name:");
@@ -144,13 +141,12 @@ namespace ConsoleApp1
 
                 for (int i = 0; i < _books.Count; i++)
                 {
-
                     if (_books[i].Name == bookName && _books[i].Author == bookAuthor)
                     {
                         _books.RemoveAt(i);
                         bookFound++;
                         Console.WriteLine("Complitly delete.");
-                        break;                       
+                        break;
                     }
                 }
 
@@ -177,7 +173,6 @@ namespace ConsoleApp1
             {
                 for (int i = 0; i < _books.Count; i++)
                 {
-
                     if (_books[i].Name == bookName)
                     {
                         _books[i].ShowInfo();
@@ -209,7 +204,6 @@ namespace ConsoleApp1
             {
                 for (int i = 0; i < _books.Count; i++)
                 {
-
                     if (_books[i].Author == bookAuthor)
                     {
                         _books[i].ShowInfo();
@@ -235,30 +229,38 @@ namespace ConsoleApp1
         public void SearchByYear()
         {
             Console.WriteLine("Enter year when book was written:");
-            int year = Convert.ToInt32(Console.ReadLine());
-            int yearChecker = 0;
+            int year;
+            bool result = int.TryParse(Console.ReadLine(), out year);
 
-            if (_books.Count != 0)
-            {
-                for (int i = 0; i < _books.Count; i++)
+            if (result == true)
+            {                
+                int yearChecker = 0;
+
+                if (_books.Count != 0)
                 {
-
-                    if (_books[i].Year == year)
+                    for (int i = 0; i < _books.Count; i++)
                     {
-                        _books[i].ShowInfo();
-                        Console.WriteLine();
-                        yearChecker++;
+                        if (_books[i].Year == year)
+                        {
+                            _books[i].ShowInfo();
+                            Console.WriteLine();
+                            yearChecker++;
+                        }
+                    }
+
+                    if (yearChecker == 0)
+                    {
+                        Console.WriteLine("No book written in this year.");
                     }
                 }
-
-                if (yearChecker == 0)
+                else
                 {
-                    Console.WriteLine("No book written in this year.");
+                    Console.WriteLine("There is no books in the library");
                 }
             }
             else
             {
-                Console.WriteLine("There is no books in the library");
+                Console.WriteLine("Incorrect input.");
             }
 
             Console.Read();
