@@ -11,50 +11,40 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            const string NewBook = "1";
-            const string RemoveBook = "2";
-            const string ShowAllBooks = "3";
-            const string ShowBooksByName = "4";
-            const string ShowBooksByAuthor = "5";
-            const string ShowBooksByYear = "6";
-            const string Exit = "7";
-            bool Iswork = true;
-            Library books = new Library();
+            const string NewBookCommand = "1";
+            const string RemoveBookCommand = "2";
+            const string ShowAllBooksCommand = "3";
+            const string SearchBookCommand = "4";
+            const string ExitCommand = "5";
+            bool isWork = true;
+            Library library = new Library();
 
-            while (Iswork)
+            while (isWork)
             {
                 Console.Clear();
-                Console.WriteLine($"Press: {NewBook} to add new book to the library.\n" +
-                    $"Press: {RemoveBook} to remove book from the library.\n" +
-                    $"Press: {ShowAllBooks} to show all book in the library.\n" +
-                    $"Press: {ShowBooksByName} to search books by name and show.\n" +
-                    $"Press: {ShowBooksByAuthor} to search books by author and show.\n" +
-                    $"Press: {ShowBooksByYear} to search books by year and show.\n" +
-                    $"Press: {Exit} to close the programm.\n");
+                Console.WriteLine($"Press: {NewBookCommand} to add new book to the library.\n" +
+                    $"Press: {RemoveBookCommand} to remove book from the library.\n" +
+                    $"Press: {ShowAllBooksCommand} to show all book in the library.\n" +
+                    $"Press: {SearchBookCommand} to search books by name and show.\n" +
+                    $"Press: {ExitCommand} to close the programm.\n");
                 string userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
-                    case "1":
-                        books.AddBook();
+                    case NewBookCommand:
+                        library.AddBook();
                         break;
-                    case "2":
-                        books.DeleteBook();
+                    case RemoveBookCommand:
+                        library.DeleteBook();
                         break;
-                    case "3":
-                        books.ShowBooks();
+                    case ShowAllBooksCommand:
+                        library.ShowBooks();
                         break;
-                    case "4":
-                        books.SearchByName();
+                    case SearchBookCommand:
+                        library.SearchBook();
                         break;
-                    case "5":
-                        books.SearchByAuthor();
-                        break;
-                    case "6":
-                        books.SearchByYear();
-                        break;
-                    case "7":
-                        Iswork = false;
+                    case ExitCommand:
+                        isWork = false;
                         break;
                     default:
                         Console.WriteLine("Incorrect input\n");
@@ -94,18 +84,16 @@ namespace ConsoleApp1
             string bookName = Console.ReadLine();
             Console.WriteLine("Enter the author:");
             string autor = Console.ReadLine();
-            Console.WriteLine("Enter the year when the book was written:");
-            int year = 0;
-            bool result = int.TryParse(Console.ReadLine(), out year);
+            int year = ReadNumber();
 
-            if (result == true && bookName != "" && autor != "")
+            if (bookName != "" && autor != "")
             {
                 _books.Add(new Book(bookName, autor, year));
                 Console.WriteLine("Book added.");
             }
             else
             {
-                Console.WriteLine("Incorrect name,author or year.");
+                Console.WriteLine("Incorrect name or author.");
             }
 
             Console.Read();
@@ -228,42 +216,96 @@ namespace ConsoleApp1
 
         public void SearchByYear()
         {
-            Console.WriteLine("Enter year when book was written:");
-            int year;
-            bool result = int.TryParse(Console.ReadLine(), out year);
+            int year = ReadNumber();
+            int yearChecker = 0;
 
-            if (result == true)
-            {                
-                int yearChecker = 0;
-
-                if (_books.Count != 0)
+            if (_books.Count != 0)
+            {
+                for (int i = 0; i < _books.Count; i++)
                 {
-                    for (int i = 0; i < _books.Count; i++)
+                    if (_books[i].Year == year)
                     {
-                        if (_books[i].Year == year)
-                        {
-                            _books[i].ShowInfo();
-                            Console.WriteLine();
-                            yearChecker++;
-                        }
-                    }
-
-                    if (yearChecker == 0)
-                    {
-                        Console.WriteLine("No book written in this year.");
+                        _books[i].ShowInfo();
+                        Console.WriteLine();
+                        yearChecker++;
                     }
                 }
-                else
+
+                if (yearChecker == 0)
                 {
-                    Console.WriteLine("There is no books in the library");
+                    Console.WriteLine("No book written in this year.");
                 }
             }
             else
             {
-                Console.WriteLine("Incorrect input.");
+                Console.WriteLine("There is no books in the library");
             }
 
             Console.Read();
+        }
+
+        public int ReadNumber()
+        {
+            int input = 0;
+            bool isWork = true;
+
+            while (isWork)
+            {
+                Console.WriteLine("Enter the year when the book was written:");
+                bool isCorrect = int.TryParse(Console.ReadLine(), out input);
+
+                if (isCorrect != true)
+                {
+                    Console.WriteLine("Incorrect input.");
+                    isWork = true;
+                }
+                else
+                {
+                    isWork = false;
+                }
+            }
+
+            return input;
+        }
+
+        public void SearchBook()
+        {
+            const string SortByNameCommand = "1";
+            const string SortByAuthorCommand = "2";
+            const string SortByYearCommand = "3";
+            const string BackToMenuCommand = "4";
+            bool isWork = true;
+
+            while (isWork)
+            {
+                Console.WriteLine($"Press: {SortByNameCommand} to search all books by name and show.\n" +
+                    $"Press: {SortByAuthorCommand} to search all books by author and show.\n" +
+                    $"Press: {SortByYearCommand} to search all books by year and show.\n" +
+                    $"Press: {BackToMenuCommand} to back to menu.\n");
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case SortByNameCommand:
+                        SearchByName();
+                        isWork = false;
+                        break;
+                    case SortByAuthorCommand:
+                        SearchByAuthor();
+                        isWork = false;
+                        break;
+                    case SortByYearCommand:
+                        SearchByYear();
+                        isWork = false;
+                        break;
+                    case BackToMenuCommand:
+                        isWork = false;
+                        break;
+                    default:
+                        Console.WriteLine("Incorrect input\n");
+                        break;
+                }
+            }
         }
     }
 }
