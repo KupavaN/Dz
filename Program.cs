@@ -14,7 +14,7 @@ namespace ConsoleApp1
             const string NewBookCommand = "1";
             const string RemoveBookCommand = "2";
             const string ShowAllBooksCommand = "3";
-            const string SearchBookCommand = "4";
+            const string ShowBooksCommand = "4";
             const string ExitCommand = "5";
             bool isWork = true;
             Library library = new Library();
@@ -25,7 +25,7 @@ namespace ConsoleApp1
                 Console.WriteLine($"Press: {NewBookCommand} to add new book to the library.\n" +
                     $"Press: {RemoveBookCommand} to remove book from the library.\n" +
                     $"Press: {ShowAllBooksCommand} to show all book in the library.\n" +
-                    $"Press: {SearchBookCommand} to search books by name and show.\n" +
+                    $"Press: {ShowBooksCommand} to search books by name and show.\n" +
                     $"Press: {ExitCommand} to close the programm.\n");
                 string userInput = Console.ReadLine();
 
@@ -40,8 +40,8 @@ namespace ConsoleApp1
                     case ShowAllBooksCommand:
                         library.ShowBooks();
                         break;
-                    case SearchBookCommand:
-                        library.SearchBook();
+                    case ShowBooksCommand:
+                        library.ShowBooksByParameters();
                         break;
                     case ExitCommand:
                         isWork = false;
@@ -78,13 +78,131 @@ namespace ConsoleApp1
     {
         private List<Book> _books = new List<Book>();
 
+        private void ShowBooksByName()
+        {
+            Console.WriteLine("Enter book name:");
+            string bookName = Console.ReadLine();
+            bool isNameFound = false;
+
+            if (_books.Count != 0)
+            {
+                for (int i = 0; i < _books.Count; i++)
+                {
+                    if (_books[i].Name == bookName)
+                    {
+                        _books[i].ShowInfo();
+                        Console.WriteLine();
+                        isNameFound = true;
+                    }
+                }
+
+                if (isNameFound == false)
+                {
+
+                    Console.WriteLine("There is no books with this name.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("There is no books in the library");
+            }
+
+            Console.Read();
+        }
+
+        private void ShowBooksByAuthor()
+        {
+            Console.WriteLine("Enter book author:");
+            string bookAuthor = Console.ReadLine();
+            bool isAuthorFound = false;
+
+            if (_books.Count != 0)
+            {
+                for (int i = 0; i < _books.Count; i++)
+                {
+                    if (_books[i].Author == bookAuthor)
+                    {
+                        _books[i].ShowInfo();
+                        Console.WriteLine();
+                        isAuthorFound = true;
+                    }
+                }
+
+                if (isAuthorFound == false)
+                {
+
+                    Console.WriteLine("There is no books written by this author.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("There is no books in the library");
+            }
+
+            Console.Read();
+        }
+
+        private void ShowBooksByYear()
+        {
+            int year = ReadNumber("Enter the year when the book was written:");
+            bool isYearCorrect = false;
+
+            if (_books.Count != 0)
+            {
+                for (int i = 0; i < _books.Count; i++)
+                {
+                    if (_books[i].Year == year)
+                    {
+                        _books[i].ShowInfo();
+                        Console.WriteLine();
+                        isYearCorrect = true;
+                    }
+                }
+
+                if (isYearCorrect == false)
+                {
+                    Console.WriteLine("No book written in this year.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("There is no books in the library");
+            }
+
+            Console.Read();
+        }
+
+        private int ReadNumber(string text)
+        {
+            int input = 0;
+            bool isWork = true;
+
+            while (isWork)
+            {
+                Console.WriteLine(text);
+                bool isCorrect = int.TryParse(Console.ReadLine(), out input);
+
+                if (isCorrect != true)
+                {
+                    Console.WriteLine("Incorrect input.");
+                    isWork = true;
+                }
+                else
+                {
+                    isWork = false;
+                }
+            }
+
+            return input;
+        }
+
         public void AddBook()
         {
             Console.WriteLine("Enter the book name:");
             string bookName = Console.ReadLine();
             Console.WriteLine("Enter the author:");
             string autor = Console.ReadLine();
-            int year = ReadNumber();
+            int year = ReadNumber("Enter the year when the book was written:");
 
             if (bookName != "" && autor != "")
             {
@@ -105,6 +223,7 @@ namespace ConsoleApp1
             {
                 for (int i = 0; i < _books.Count; i++)
                 {
+                    Console.WriteLine($"Book index: {_books.IndexOf(_books[i])+1}");
                     _books[i].ShowInfo();
                     Console.WriteLine();
                 }
@@ -120,27 +239,24 @@ namespace ConsoleApp1
         public void DeleteBook()
         {
             if (_books.Count != 0)
-            {
-                Console.WriteLine("Enter book name:");
-                string bookName = Console.ReadLine();
-                Console.WriteLine("Enter book author:");
-                string bookAuthor = Console.ReadLine();
-                int bookFound = 0;
+            {                
+                int bookIndex = ReadNumber("Enter the book index:");                
+                bool isBookFound = false;
 
                 for (int i = 0; i < _books.Count; i++)
                 {
-                    if (_books[i].Name == bookName && _books[i].Author == bookAuthor)
+                    if (bookIndex== _books.IndexOf(_books[i]) + 1)
                     {
                         _books.RemoveAt(i);
-                        bookFound++;
+                        isBookFound = true;
                         Console.WriteLine("Complitly delete.");
                         break;
                     }
                 }
 
-                if (bookFound == 0)
+                if (isBookFound == false)
                 {
-                    Console.WriteLine("Incorrect book name or author.");
+                    Console.WriteLine("Incorrect book index");
                 }
             }
             else
@@ -149,126 +265,9 @@ namespace ConsoleApp1
             }
 
             Console.Read();
-        }
+        }                                
 
-        public void SearchByName()
-        {
-            Console.WriteLine("Enter book name:");
-            string bookName = Console.ReadLine();
-            int nameChecker = 0;
-
-            if (_books.Count != 0)
-            {
-                for (int i = 0; i < _books.Count; i++)
-                {
-                    if (_books[i].Name == bookName)
-                    {
-                        _books[i].ShowInfo();
-                        Console.WriteLine();
-                        nameChecker++;
-                    }
-                }
-
-                if (nameChecker == 0)
-                {
-
-                    Console.WriteLine("There is no books with this name.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("There is no books in the library");
-            }
-
-            Console.Read();
-        }
-        public void SearchByAuthor()
-        {
-            Console.WriteLine("Enter book author:");
-            string bookAuthor = Console.ReadLine();
-            int authorChecker = 0;
-
-            if (_books.Count != 0)
-            {
-                for (int i = 0; i < _books.Count; i++)
-                {
-                    if (_books[i].Author == bookAuthor)
-                    {
-                        _books[i].ShowInfo();
-                        Console.WriteLine();
-                        authorChecker++;
-                    }
-                }
-
-                if (authorChecker == 0)
-                {
-
-                    Console.WriteLine("There is no books written by this author.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("There is no books in the library");
-            }
-
-            Console.Read();
-        }
-
-        public void SearchByYear()
-        {
-            int year = ReadNumber();
-            int yearChecker = 0;
-
-            if (_books.Count != 0)
-            {
-                for (int i = 0; i < _books.Count; i++)
-                {
-                    if (_books[i].Year == year)
-                    {
-                        _books[i].ShowInfo();
-                        Console.WriteLine();
-                        yearChecker++;
-                    }
-                }
-
-                if (yearChecker == 0)
-                {
-                    Console.WriteLine("No book written in this year.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("There is no books in the library");
-            }
-
-            Console.Read();
-        }
-
-        public int ReadNumber()
-        {
-            int input = 0;
-            bool isWork = true;
-
-            while (isWork)
-            {
-                Console.WriteLine("Enter the year when the book was written:");
-                bool isCorrect = int.TryParse(Console.ReadLine(), out input);
-
-                if (isCorrect != true)
-                {
-                    Console.WriteLine("Incorrect input.");
-                    isWork = true;
-                }
-                else
-                {
-                    isWork = false;
-                }
-            }
-
-            return input;
-        }
-
-        public void SearchBook()
+        public void ShowBooksByParameters()
         {
             const string SortByNameCommand = "1";
             const string SortByAuthorCommand = "2";
@@ -287,15 +286,15 @@ namespace ConsoleApp1
                 switch (userInput)
                 {
                     case SortByNameCommand:
-                        SearchByName();
+                        ShowBooksByName();
                         isWork = false;
                         break;
                     case SortByAuthorCommand:
-                        SearchByAuthor();
+                        ShowBooksByAuthor();
                         isWork = false;
                         break;
                     case SortByYearCommand:
-                        SearchByYear();
+                        ShowBooksByYear();
                         isWork = false;
                         break;
                     case BackToMenuCommand:
